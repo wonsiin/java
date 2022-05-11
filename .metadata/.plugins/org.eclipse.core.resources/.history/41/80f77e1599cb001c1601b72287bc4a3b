@@ -1,0 +1,125 @@
+package net.scit.entity;
+
+public class Patient { 
+	private String patientId; 		// 환자번호 
+	private String name; 			// 이름
+	private int age; 				// 나이
+	private Department part; 		// 진료코드(진료과목)
+	private int period; 			// 입원기간 
+	private int expenses; 			// 진찰비 
+	private int hospitalBill ; 		// 입원비
+	
+	// Code Here
+	
+	public Patient() {}
+
+	public Patient(String patientId, String name, int age, Department part, int period) {
+		this.patientId = patientId;
+		this.name = name;
+		this.age = age;
+		this.part = part;
+		this.period = period;
+		
+		vi(age);
+		ge(period);
+	}
+
+	public String getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+		vi(age);
+	}
+	public void vi(int age) {
+		if(age < 10) {
+			expenses = 7000;
+		}else if(age >= 10 && age <= 20) {
+			expenses = 5000;
+		}else if(age >= 20 && age <= 30) {
+			expenses = 8000;
+		}else if(age >= 30 && age <= 40) {
+			expenses = 7000;
+		}else if(age >= 40 && age <= 50) {
+			expenses = 4500;
+		}else if(age > 50) {
+			expenses = 2300;
+		}
+	}
+	
+	public void ip(int period) {
+		
+	}
+	
+
+	public Department getPart() {
+		return part;
+	}
+
+	public void setPart(Department part) {
+		this.part = part;
+		
+	}
+	
+
+	public int getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(int period) {//입원일
+		this.period = period;
+		ge(period);
+		
+	}
+	public void ge(int period) {		//입원비
+		if(period < 10) {
+			hospitalBill = (int)((expenses * period) * 0.01);
+		}else if(period >= 10 && period < 15) {
+			hospitalBill = (int)((expenses * period)* 0.085);
+		}else if(period >= 15 && period < 20) {
+			hospitalBill = (int)((expenses * period)* 0.08);
+		}else if(period >= 20 && period < 30) {
+			hospitalBill = (int)((expenses * period)* 0.077);
+		}else if(period >= 30 && period < 100) {
+			hospitalBill = (int)((expenses * period)* 0.072);
+		}else if(period > 100){
+			hospitalBill = (int)((expenses * period)* 0.068);
+		}
+		
+	}
+	public int getExpenses() {
+		return expenses;
+	}
+	public int getHospitalBill() {
+		return hospitalBill;
+	}
+	@Override
+	public String toString() {
+		return "    " +patientId + "      " + name + "      " + part.getBu() + "	    " + expenses + "      "
+				+ period + "		" + expenses + "	   " + hospitalBill;
+	}
+	
+	
+	
+	
+	
+	
+	
+}

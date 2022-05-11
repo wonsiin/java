@@ -1,0 +1,22 @@
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+class SwingThread extends JFrame{	//자바에서 제공해주는 창
+	JTextField tf1, tf2;
+	
+	public SwingThread() {
+		super("스레드 연습");
+		
+	}
+	
+}
+
+
+public class GUIThread {
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}

@@ -1,0 +1,19 @@
+package net.scit.main;
+
+import net.scit.entity.Department;
+import net.scit.ui.TreatmentPatientUI;
+
+public class TreatmentPatientMain {
+
+	public static void main(String[] args) {
+//		new TreatmentPatientUI();
+		Department[] d = Department.values();
+		for(Department t : d) {
+			System.out.print(t + " ");
+		}
+		System.out.println(" ** 진료받는 진료과를 선택하세요");
+		System.out.print("1) 외과 2) 내과 3) 피부과 4) 소아과 5) 산부인과 6) 비뇨기과 : ");
+		
+	}
+
+}

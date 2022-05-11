@@ -1,0 +1,17 @@
+class BankAccount{
+	private int balance = 1000;
+	
+	public int getBalance() {
+		return balance;
+	}
+}
+
+
+public class ThreadTest3 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

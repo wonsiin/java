@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 4 packages to &apos;Fitness_v05/src&apos;&#x0D;&#x0A;- Original project: &apos;Fitness_v04&apos;&#x0D;&#x0A;- Destination element: &apos;Fitness_v05/src&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Fitness_v04/src/net.scit.main&#x0D;&#x0A;     Fitness_v04/src/net.scit.service&#x0D;&#x0A;     Fitness_v04/src/net.scit.vo&#x0D;&#x0A;     Fitness_v04/src/net.scit.ui" description="Copy packages" destination="=Fitness_v05/src" element1="/src&lt;net.scit.main" element2="/src&lt;net.scit.service" element3="/src&lt;net.scit.vo" element4="/src&lt;net.scit.ui" flags="589830" fragments="4" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1651556071226" version="1.0"/>
+</session>

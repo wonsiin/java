@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class randum {
+	Scanner sc = new Scanner(System.in);
+	private int ban;
+	
+	public randum() {
+		print();
+		String ban1 = sc.next();
+		if (ban1.equals(1)) {
+			System.out.print("몇번 굴릴것인지 알려주세요. : ");
+			ban = sc.nextInt();
+		}else if(ban1.equals(2)){
+			return;
+		}
+		randum(ban);
+	}
+	
+	private void randum(int ban) {
+		if(ban != 0) {
+			int[] ga = new int[6];
+			for(int i =0; i < ga.length-1; ++i) {
+				System.out.println(i);
+				for(int j = 0; j < i; ++j) {
+					
+					break;
+				}
+				
+				break;
+			}
+		}
+	}
+
+//	public randum(int ban) {}
+	
+	public void sta() {
+		
+	}
+	public void print() {
+		System.out.println("********************************");
+		System.out.println("*****    1. 굴 려 보 기 ***********");
+		System.out.println("*****    2. 종 료 하 기 ***********");
+		System.out.println("********************************");
+	}
+	public static void main(String[] args) {
+		randum r = new randum();
+		
+	}
+}

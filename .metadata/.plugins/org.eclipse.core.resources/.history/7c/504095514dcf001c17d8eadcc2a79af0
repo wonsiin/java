@@ -1,0 +1,11 @@
+class Shared{
+	
+}
+public class ThreadTest1 {
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}

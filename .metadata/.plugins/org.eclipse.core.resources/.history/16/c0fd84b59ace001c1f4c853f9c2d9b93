@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class Teste {
+	public static void main(String[] args) {
+		int n = 0;
+		Scanner sc = new Scanner(System.in);
+		
+		if(1<= n && n <= 20) {
+			
+		}
+		
+		
+	}
+}

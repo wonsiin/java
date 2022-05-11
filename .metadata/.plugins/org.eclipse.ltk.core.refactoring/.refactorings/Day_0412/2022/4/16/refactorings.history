@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 4 elements to &apos;Day_0413/src&apos;&#x0D;&#x0A;- Original project: &apos;Day_0412&apos;&#x0D;&#x0A;- Destination element: &apos;Day_0413/src&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Circle.java&#x0D;&#x0A;     PolygonTest.java&#x0D;&#x0A;     Triangle.java&#x0D;&#x0A;     MyPoint.java" description="Copy compilation units" destination="=Day_0413/src" element1="/src&lt;{Circle.java" element2="/src&lt;{PolygonTest.java" element3="/src&lt;{Triangle.java" element4="/src&lt;{MyPoint.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1649822851047" units="4" version="1.0"/>
+</session>

@@ -1,0 +1,12 @@
+
+public class Teste {
+	public static void main(String[] args) {
+		int n = 0;
+		
+		if(1<= n && n <= 20) {
+			
+		}
+		
+		
+	}
+}
