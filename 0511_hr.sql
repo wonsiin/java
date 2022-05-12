@@ -1,0 +1,143 @@
+--5월 11일 (수)
+
+--전체 데이터 조회
+SELECT * FROM employees;
+
+--특정 컬럼을 조회
+SELECT FIRST_NAME,SALARY,DEPARTMENT_ID FROM employees;
+
+-- 부서 번호
+SELECT DISTINCT department_id FROM employees;
+
+-- 부서 번호 오름차순 정렬
+SELECT DISTINCT department_id FROM employees
+ORDER BY DEPARTMENT_ID;
+
+-- 부서 번호 내림차순 정렬
+SELECT DISTINCT department_id FROM employees
+ORDER BY DEPARTMENT_ID DESC;
+
+-- 이름과 부서 번호 부서번호는 내림차순, 이름은 오름차순 정렬
+SELECT FIRST_NAME,DEPARTMENT_ID FROM employees
+ORDER BY DEPARTMENT_ID DESC, FIRST_NAME;
+
+-- 별칭(ALIAS)
+SELECT FIRST_NAME AS "이름",DEPARTMENT_ID AS "부서번호" FROM employees
+ORDER BY DEPARTMENT_ID DESC, FIRST_NAME;
+
+--연산자를 이용한 처리
+-- 급여가 5000이상인 직원의 이름, 부서 , 급여를 조회
+--SELECT XX FROM XX WHERE 조건식 ORDER BY XX
+SELECT FIRST_NAME,DEPARTMENT_ID,SALARY FROM employees
+WHERE SALARY >= 5000 ORDER BY SALARY, department_id,FIRST_NAME;
+--오라클의 데이터 타입과 리터널
+
+--입사일이 2005년 이후 입사자 조회
+ --작은따옴표 사용해주자
+SELECT FIRST_NAME,DEPARTMENT_ID,HIRE_DATE FROM employees;
+SELECT FIRST_NAME,DEPARTMENT_ID,HIRE_DATE FROM employees
+WHERE HIRE_DATE >= '05/01/01' ORDER BY HIRE_DATE;
+
+SELECT FIRST_NAME,DEPARTMENT_ID,HIRE_DATE FROM employees
+WHERE HIRE_DATE <= '05/01/01' ORDER BY HIRE_DATE;
+
+-- Steven King 은 SA_PR이다. --> ALIAS는 '신상정보'
+--|| 사용
+SELECT (FIRST_NAME|| ' ' ||LAST_NAME || ' 은  ' || JOB_ID|| '이다')AS "신상정보" FROM employees;
+
+SELECT (FIRST_NAME|| ' ' ||LAST_NAME || ' 은 ' || JOB_ID|| '이다')AS "신상정보" FROM employees ORDER BY FIRST_NAME;
+
+--50번 부서에 속한 직원들의 이름,부서번호,급여 출력.
+--문자열이면 ' ' 를 숫자면 50을 사용
+SELECT FIRST_NAME,DEPARTMENT_ID,SALARY FROM employees
+WHERE DEPARTMENT_ID = 50 ORDER BY SALARY DESC;
+
+--급여가 5000 ~ 10000 사이 목록가져오기
+SELECT FIRST_NAME,DEPARTMENT_ID,SALARY FROM employees
+WHERE SALARY >= 5000 AND SALARY <= 10000 ORDER BY SALARY;
+
+
+--문제 1
+--사원번호 , 이름, 부서번호, 급여, 직급을 급여별로 내림차순 조회
+SELECT EMPLOYEE_ID,FIRST_NAME,DEPARTMENT_ID,SALARY,JOB_ID FROM employees
+ORDER BY SALARY DESC;
+--문제 2
+--급여가 10000 이상인 사람의 이름, 급여, 부서번호 조회
+SELECT FIRST_NAME,SALARY,DEPARTMENT_ID FROM employees
+WHERE SALARY >= 10000;
+--문제 3
+--100번 부서에 소속된 사람들의 이름, 부서번호, 급여를 이름순으로 오름차순 정렬하여 조회
+SELECT FIRST_NAME,DEPARTMENT_ID,SALARY FROM employees
+WHERE DEPARTMENT_ID = 100 ORDER BY FIRST_NAME;
+--문제 4
+--입사일이 '07/02/07'이후에 입사한 사람의 이름, 입사일을 날짜별 오름차순으로 조회
+SELECT FIRST_NAME,HIRE_DATE FROM employees
+WHERE hire_date >= '07/02/07' ORDER BY hire_date;
+--문제 5
+--이름,입사일,급여,부서번호를 조회, (부서별 오름차순,이름별 오름차순)
+SELECT FIRST_NAME,HIRE_DATE,SALARY,DEPARTMENT_ID FROM employees
+ORDER BY DEPARTMENT_ID,FIRST_NAME;
+--문제 6
+--이름,입사일,급여,커미션 정보(COMMISSION_PCT)조회
+SELECT FIRST_NAME,HIRE_DATE,SALARY,COMMISSION_PCT FROM employees;
+
+/*NULL 데이터 처리하기 */
+SELECT FIRST_NAME,HIRE_DATE,SALARY,COMMISSION_PCT FROM employees
+WHERE COMMISSION_PCT IS NOT NULL;
+
+--부서에 소속되지 않은 사람의 이름, 입사일, 급여, 부서번호를 조회
+SELECT FIRST_NAME,HIRE_DATE,SALARY,DEPARTMENT_ID FROM employees
+WHERE DEPARTMENT_ID IS NULL;
+
+--(연습) 성과급이 있는 직원의 이름, 급여,커미션비율,성과급, 합계를 조회하시오.(별칭을 사용할것)
+SELECT FIRST_NAME AS"이름",SALARY AS"급여",COMMISSION_PCT AS"비율",SALARY*COMMISSION_PCT AS"성과급",SALARY+(SALARY*COMMISSION_PCT) AS"합계"  
+FROM employees
+WHERE SALARY+(SALARY*COMMISSION_PCT) IS NOT NULL 
+ORDER BY SALARY DESC;
+
+--(연습) 성과급이 있는 직원의 이름, 급여,커미션비율,성과급, 합계를 조회하시오.(별칭을 사용할것)
+-- 성과금액이 10000 이하인 사람만
+SELECT FIRST_NAME AS"이름",SALARY AS"급여",COMMISSION_PCT AS"비율",SALARY*COMMISSION_PCT AS"성과급",SALARY+(SALARY*COMMISSION_PCT) AS"합계"  
+FROM employees 
+WHERE COMMISSION_PCT IS NOT NULL 
+AND SALARY*COMMISSION_PCT <= 1000 
+ORDER BY SALARY+(SALARY*COMMISSION_PCT) DESC;
+
+--급여가 5000 ~ 10000 사이 목록가져오기(반복)
+SELECT FIRST_NAME,DEPARTMENT_ID,SALARY FROM employees
+WHERE SALARY >= 5000 AND SALARY <= 10000 ORDER BY SALARY;
+
+--BETWEEN 사용(위와 동일)
+SELECT FIRST_NAME,DEPARTMENT_ID,SALARY FROM employees
+WHERE SALARY BETWEEN 5000 AND 10000 ORDER BY SALARY;
+
+--급여가 5000 ~ 10000 사이가 아닌 직원 목록가져오기(반복)
+SELECT FIRST_NAME,DEPARTMENT_ID,SALARY FROM employees
+WHERE SALARY NOT BETWEEN 5000 AND 10000 ORDER BY SALARY DESC;
+
+--부서번호가 10번 이거나 30번인 직원의 이름, 부서번호 ,직급을 조회
+-- OR로 연산
+SELECT FIRST_NAME,DEPARTMENT_ID,job_id FROM employees
+WHERE DEPARTMENT_ID = 10 OR DEPARTMENT_ID = 30;
+--IN으로 OR을 많이 필요한 테이블에서  OR대신 조건을 붙일때 사용(정확한 값을 알때 사용)
+SELECT FIRST_NAME,DEPARTMENT_ID,job_id FROM employees
+WHERE DEPARTMENT_ID IN(10,30);
+-- 부서번호가 10번, 30번, 50번이 아닌 직원의 이름, 부서번호 ,직급을 조회
+SELECT FIRST_NAME,DEPARTMENT_ID,job_id FROM employees
+WHERE DEPARTMENT_ID NOT IN(10,30,50);
+
+--LIKE %는 글자 수 제한이 없다.
+--CLERK 들을 조회
+--문자열 검색할때의 작은콤마 안에값은 대 소문자가 중요하다
+SELECT FIRST_NAME,JOB_ID
+FROM employees
+WHERE JOB_ID LIKE '%CLERK';
+
+
+
+
+
+
+
+
+
