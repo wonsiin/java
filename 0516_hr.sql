@@ -126,24 +126,34 @@ AND
 d.location_id = c.location_id;
 
 --1. 부서명, 도시명을 조회 ok
-SELECT D.DEPARTMENT_NAME, C.CITY
+SELECT d.DEPARTMENT_NAME, c.CITY
 FROM departments D, locations C
 WHERE
 d.location_id = c.location_id;
 -- 2. 근속 년수가 15년 이상인 사람의 이름, 입사일 부서명을 조회하시오. OK
-SELECT  FIRST_NAME, floor((sysdate-HIRE_DATE)/365) as "일수", JOB_ID
+SELECT  FIRST_NAME, floor((sysdate-HIRE_DATE)/365) as "년수", JOB_ID
 FROM employees
 WHERE floor(sysdate-HIRE_DATE)/365 >= 15;
+----------------------------추가
+select  e.FIRST_NAME,e.hire_date,Substr(sysdate,1,2)-Substr(HIRE_DATe,1,2) as "근속년수", d.department_name
+from employees e, departments d
+where 
+    Substr(sysdate,1,2)-Substr(HIRE_DATe,1,2) >= 15
+    and
+    e.department_id = d.department_id
+order by 3;
 --3. 업무 종류가 CLERK 인 직원 중 근속년수가 12년 이상인 직원에게 특별상여금 10%를 지급하려고 한다.
--- 이름, 입사일, 근속년수, 부서명, 업무명(JOB_ID), 급여액, 특별 상여금을 차례로 조회하세요. OK
-SELECT  FIRST_NAME, HIRE_DATE, floor((sysdate-HIRE_DATE)/365) as "일수",
-DEPARTMENT_ID, JOB_ID,SALARY,
-CASE 
-        WHEN floor((sysdate-HIRE_DATE)/365) < 12 THEN salary * 0
-        WHEN floor((sysdate-HIRE_DATE)/365) >= 12 THEN salary * 0.1
-        ELSE  salary
-    END AS 상여금
-FROM employees
+-- 이름, 입사일, 근속년수, 부서명, 업무명(JOB_ID), 급여액, 특별 상여금을 차례로 조회하세요.    xx (서브쿼리)
+SELECT  E.FIRST_NAME, E.HIRE_DATE,  Substr(sysdate,1,2)-Substr(HIRE_DATe,1,2) as "년수",
+d.department_name, j.job_title,E.SALARY,salary*0.1 as "특별상여금"
+FROM  JOBS j,departments d,employees e
+where e.job_id like '%CLERK'
+and
+Substr(sysdate,1,2)-Substr(HIRE_DATe,1,2) >= 12
+AND
+d.department_id = e.department_id
+and
+j.job_id = e.job_id
 ORDER BY 3;
 --4. JOIN 을 사용하여 커미션을 받는 모든 사원의 이름, 부서ID, 지역명을 출력 OK
 SELECT E.FIRST_NAME,E.DEPARTMENT_ID,C.CITY
@@ -152,20 +162,26 @@ WHERE e.commission_pct IS NOT NULL
 AND
 E.DEPARTMENT_ID = D.DEPARTMENT_ID
 AND
-D.LOCATION_ID = C.LOCATION_ID;
+D.LOCATION_ID = C.LOCATION_ID
+and
+e.commission_pct is not null;
 --5. EQUI조인과 와일드카드를 사용하여 이름에 A가 포함된 모든 사원의 이름과 부서명을 출력(대소문자 구분X) OK
-SELECT E.FIRST_NAME,D.DEPARTMENT_ID
+SELECT E.FIRST_NAME,D.DEPARTMENT_name
 FROM employees e,departments D
-WHERE upper(FIRST_NAME) LIKE 'A%'
+WHERE 
+upper(e.FIRST_NAME) LIKE '%A%'
+--(e.FIRST_NAME LIKE '%A%' or e.FIRST_NAME LIKE '%a%')
 AND
 E.DEPARTMENT_ID = D.DEPARTMENT_ID;
 --6. JOIN을 사용하여 SEATTLE에 근무하는 모든 사원의 이름, 업무, 부서번호 및 부서명을 출력 OK
-SELECT C.city, E.FIRST_NAME,E.JOB_ID,E.DEPARTMENT_ID,d.department_name
-FROM employees E, departments D, locations C
+SELECT E.FIRST_NAME,j.JOB_Title,E.DEPARTMENT_ID,d.department_name
+FROM employees E, departments D, locations C, jobs j
 WHERE
  C.city =  'Seattle'
  AND
 E.DEPARTMENT_ID = D.DEPARTMENT_ID
 AND
-D.LOCATION_ID = C.LOCATION_ID;
+D.LOCATION_ID = C.LOCATION_ID
+and
+e.job_id = j.job_id;
 
