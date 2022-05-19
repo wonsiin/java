@@ -90,26 +90,48 @@ where department_id = 80) tbl --테이블화 시킬수있다.
 where tbl.salary > 8000;
 
 --문제 : 'Bruce' 사원의 이름, 부서이름, 동일한 부서에 근무하는 사원들을 조회
-select * from
-(select e.first_name,d.department_name  from employees e, departments d
-where department_name = 'IT' and E.DEPARTMENT_ID = D.DEPARTMENT_ID) tbl;
+
+select e.first_name,d.department_name
+from employees e, departments d
+where E.DEPARTMENT_ID = D.DEPARTMENT_ID
+and
+e.department_id =(select department_id  from employees where FIRST_name = 'Bruce');
 
 --30번 부서에 근무하는 직책과 동일한 직책으로 근무하는 직원이 다른 부서에도 있는지 확인
-select tbl.* from
---select tbl.salary from
-(select E.employee_id,E.first_name,D.department_id,c.city  from employees e, departments d , locations C
-where D.department_id = 30 and E.DEPARTMENT_ID = D.DEPARTMENT_ID AND d.location_id = c.location_id) tbl;
-
+-- DISTINCT 중복제거
+-- 찾은값은 적고 찾고싶은건 많을때 IN사용 단일값이랑 찾는값도 1개일시는 = 로 사용
+--select E.first_name,e.job_id ,D.department_id,D.department_name
+SELECT *
+from employees e, departments d
+where e.department_id = d.DEPARTMENT_ID
+and 
+e.job_id IN (select DISTINCT job_id 
+from employees
+where department_id in 30);
 --회사의 전체 급여 평균보다 적게 받는 직원의 명단을 조회
-select first_name,salary from employees
+select first_name,salary
+from employees
 where salary <=
 (SELECT AVG(salary) from employees);
 
 --각 직원별로자신이 근무하고 있는 부서의 평균 임금을 출력하는 SQL명령문
 -- 이름, 급여, 부서번호, 부서명, 부서 평균 급여
-select e.department_id "부서번호",e.first_name "이름",e.salary "급여",d.department_name  "부서명",
+select e.first_name "이름",e.salary "급여",e.department_id "부서번호",d.department_name  "부서명",
 (select floor(AVG(SALARY)) from employees o where o.department_id =e.department_id)  as "평균급여"
 from employees e,departments d;
 
-GROUP BY DEPARTMENT_ID;
-select floor(AVG(SALARY)) from employees;
+select e.first_name "이름",e.salary "급여",e.department_id "부서번호",d.department_name "부서명", x."avg_salary" as "부서 평균 급여"
+from employees e, departments d,
+    (   SELECT department_id, floor(AVG(salary)) as "avg_salary"
+        FROM employees
+        GROUP BY department_id) x
+where e.department_id = d.department_id
+and
+e.department_id = x.department_id;
+
+--SELECT department_id,TRUNC(AVG(SALARY),2)
+
+SELECT department_id, floor(AVG(salary)) as "avg_salary"
+        FROM employees
+        GROUP BY department_id;
+
