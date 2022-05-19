@@ -15,8 +15,8 @@ public class Second_JDBC {
 		Connection conn = null;		//커넥션 객체
 		Statement stat = null;			// 문장만들기위해 스테이트먼트
 		String query = null;				//문자열
-		String usrname = "손오공";
-		int age = 12;
+		String usrname = "배지터";
+		int age = 7;
 		
 		try {
 			Class.forName(driver);			//DRIVER 로딩
@@ -25,6 +25,7 @@ public class Second_JDBC {
 					+ " (usrname, age) "
 					+ "VALUES"
 					+ "('" +usrname +   "'," + age +")";
+			System.out.println(query);
 // INSERT UPDATE DELECT 는 메세지만 출력 , SELECT 는 결과 데이터를 되돌려줌.
 //			query = "CREATE TABLE test1("
 //					+ "usrname 	 VARCHAR2(20),"
