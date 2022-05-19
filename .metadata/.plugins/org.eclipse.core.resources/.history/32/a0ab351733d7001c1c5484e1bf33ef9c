@@ -1,0 +1,53 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Second_JDBC {
+
+	public static void main(String[] args) {
+		//0. 준비
+		String driver = "oracle.jdbc.driver.OracleDriver";			//드라이버 주소값
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";			//url 값
+		String nsrname = "hr";														
+		String password = "hr";
+		
+		Connection conn = null;		//커넥션 객체
+		Statement stat = null;			// 문장만들기위해 스테이트먼트
+		String query = null;				//문자열
+		
+		//1.드라이버를 메모리로 로딩 + 접속 + 쿼리 실행
+		try {
+			Class.forName(driver);			//DRIVER 로딩
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		//2. Oracle에 접속 시도
+		try {
+			conn = DriverManager.getConnection(url, nsrname, password);
+			System.out.println("DB 오라클 접속 성공");
+		// ;은 가져가면 안된다.
+			query = "CREATE TABLE test1("
+					+ "usrname 	 VARCHAR2(20),"
+					+ "age NUMBER(3))";
+			
+			stat = conn.createStatement();
+			stat.executeQuery(query); //쿼리를보냄
+			
+		} catch (SQLException e) {
+			System.out.println("DB 오라클 접속 실패");
+			e.printStackTrace();
+		}finally {
+				try {
+					if(conn != null) conn.close();
+					if(stat != null)stat.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		System.out.println("끝");
+	}
+
+}

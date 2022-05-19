@@ -1,0 +1,24 @@
+import java.sql.Connection;
+import java.sql.Statement;
+
+public class First_JDBC {
+
+	public static void main(String[] args) {
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		String url = "jdbc:oracle:thin@localhost:1521:xe";
+		String nsrname = "hr";
+		String password = "hr";
+		
+		Connection conn = null;
+		Statement stat = null;
+		String query = null;
+		
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+}
