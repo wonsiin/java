@@ -153,8 +153,9 @@ CREATE SEQUENCE REPLY_SEQ;
 
 INSERT into USERINFO
 VALUES
+
+('AAA','발산이','123');
 ('CCC','홍길동','1234');
-('AAA','홍길동','123');
 ('BBB','임꺽정','1233');
 SELECT * FROM USERINFO;
 SELECT * FROM BOARD;
@@ -196,25 +197,22 @@ and
 b.USRID = u.usrid;
 -------------------------------4 ==================================================
 
+SELECT BOARDNUM as "본문글번호", 
+count(REPLYNUM) as "리플개수" 
+from REPLY
+GROUP BY BOARDNUM;
+
+
+
 SELECT DISTINCT(SELECT DISTINCT r.BOARDNUM from REPLY o) as "본문글번호" ,
 (SELECT count(r.REPLYNUM) from REPLY p) as "리플개수"
 from BOARD B, REPLY R
 where b.BOARDNUM = r.BOARDNUM
 order by 1;
 
-SELECT DISTINCT r.BOARDNUM as "본문글번호" ,
-t.REPLYNUM as "리플개수"
-from REPLY R, REPLY t
-where r.REPLYNUM = t.REPLYNUM;
-
-
  SELECT DISTINCT r.BOARDNUM  from REPLY r;
-SELECT count(r.BOARDNUM = 1)  from REPLY r;
+SELECT BOARDNUM  from REPLY;
  
 SELECT DISTINCT o.BOARDNUM from REPLY o where o.BOARDNUM
 (SELECT DISTINCT count(o.REPLYNUM) from REPLY o);
-
-SELECT REPLYNUM from BOARD B, REPLY R
-where b.BOARDNUM = r.REPLYNUM;
-
 
