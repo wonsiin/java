@@ -188,13 +188,15 @@ R.TEXT AS "TEXT" FROM USERINFO U, BOARD B, REPLY R
 WHERE U.USRID = b.usrid
 AND U.USRID = r.usrid;
 -------------------------------3 ==================================================
-SELECT b.BOARDNUM AS "본문글번호", u.username AS "본문작성자",
-R.REPLYNUM AS "리플번호", 
-u.username AS "리플 작성자" FROM userinfo u, BOARD B, REPLY R
-WHERE 
-b.BOARDNUM = r.BOARDNUM
+select b.BOARDNUM, u1.username , r.REPLYNUM, u2.username 
+from userinfo u1, userinfo u2, REPLY r, BOARD b
+where 
+u1.usrid = b.usrid
 and
-b.USRID = u.usrid;
+r.usrid = u2.usrid
+and
+b.BOARDNUM = r.BOARDNUM
+order by 3;
 -------------------------------4 ==================================================
 
 SELECT BOARDNUM as "본문글번호", 
@@ -216,3 +218,58 @@ SELECT BOARDNUM  from REPLY;
 SELECT DISTINCT o.BOARDNUM from REPLY o where o.BOARDNUM
 (SELECT DISTINCT count(o.REPLYNUM) from REPLY o);
 
+
+
+
+SELECT b.BOARDNUM AS "본문글번호", 
+(select o.username from userinfo o,BOARD b where b.USRID = o.USRID) AS "본문작성자",
+R.REPLYNUM AS "리플번호", 
+u.username AS "리플 작성자" FROM userinfo u, BOARD B, REPLY R
+WHERE 
+b.BOARDNUM = r.BOARDNUM
+and
+r.USRID = u.usrid
+and
+o.USRID = u.usrid;
+select  , o.username from userinfo o;
+
+select x.boardnum, x.username 
+(select n.REPLYNUM from userinfo i, REPLY n
+where i.usrid = n.usrid)
+from 
+(select b.BOARDNUM, u.username from userinfo u, BOARD b
+where b.USRID = u.USRID
+and
+i.usrid = u.usrid) x;
+order by 1;
+select (select n.REPLYNUM from userinfo i, REPLY n
+where i.usrid = n.usrid),;
+
+SELECT * FROM USERINFO;
+SELECT * FROM BOARD;
+SELECT * FROM REPLY;
+
+select b.BOARDNUM as "본문글번호",
+i.username as "본문작성자",
+n.REPLYNUM as "리플번호"
+--,(select u.username from userinfo u, REPLY r
+--where r.usrid = u.usrid) as "리플작성자"
+from userinfo i, REPLY n , BOARD b
+where 
+i.usrid = b.usrid
+and
+n.usrid = i.usrid
+and
+b.usrid = n.usrid
+order by 3;
+
+
+select b.BOARDNUM, u1.username , r.REPLYNUM, u2.username 
+from userinfo u1, userinfo u2, REPLY r, BOARD b
+where 
+u1.usrid = b.usrid
+and
+r.usrid = u2.usrid
+and
+b.BOARDNUM = r.BOARDNUM
+order by 3;
