@@ -2,8 +2,22 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.mybatis.example.BlogMapper">
-	<select id="selectBlog" resultType="Blog">
-		select * from Blog where id = #{id}
-	</select>
+  <!--  주석모양
+  		namespace : interface의 full name 을 적는다.
+  		parameterType : 파라미터로 전달되는 객체의 full name을 적는다. (full name = 패키지 주소 포함)
+   -->
+<mapper namespace="scit.dao.UserMapper">
+		<insert id="insertUser" parameterType="scit.vo.UserVO"> <!-- insert 명 , 첨부될 타입      #{} 백터를 호출한다. -->
+		INSERT INTO USR
+			(usrid, usrname)
+		VALUES
+			(#{usrid}, #{usrname})  <!--   #{usrid} ==> getUsrid()    이렇게 바뀐다.     --> 
+		</insert>
+		<!-- 리턴타입이 있으면 resultType에 list의 속성값을 적어줘야한다  -->
+		<select id="selectUser" resultType="scit.vo.UserVO">
+		SELECT
+			usrid , usrname 										<!--   #{usrid} ==> setUsrid(usrid)    이렇게 바뀐다.   세미클론을 찍어선 안된다.  --> 
+		FROM
+				USR
+		</select>
 </mapper>
