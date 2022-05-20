@@ -231,7 +231,7 @@ count(REPLYNUM) as "리플개수"
 from REPLY
 GROUP BY BOARDNUM;
 --==========================================
-SELECT BOARDNUM as "본문글번호",
+SELECT B.BOARDNUM as "본문글번호",
 count(*) as "리플개수"
 from REPLY r , BOARD b
 where
