@@ -117,7 +117,7 @@ DROP SEQUENCE REPLY_SEQ;
 DROP TABLE BOARD;
 DROP SEQUENCE BOARD_SEQ;
 
-
+--==========================================================================================================
 CREATE TABLE USERINFO
 (
     USRID VARCHAR2 (20) PRIMARY KEY,  --회원아이디
@@ -150,7 +150,7 @@ CREATE TABLE REPLY
     REGDATE DATE DEFAULT SYSDATE
 );
 CREATE SEQUENCE REPLY_SEQ;
-
+--==========================================================================================================
 INSERT into USERINFO
 VALUES
 
@@ -182,13 +182,37 @@ SELECT B.BOARDNUM AS "글번호", P.USRID||' '||'('||(O.USERNAME)||')' AS "작성자",
 FROM USERINFO P , USERINFO O , BOARD B
 WHERE O.USRID = P.USRID
 AND P.USRID = B.USRID;
--------------------------------2 ==================================================
+
+
+--서브쿼리
+SELECT BOARDNUM AS "글번호"
+, USRID||' '||'('||(select USERNAME from userinfo where board.usrid = userinfo.usrid)||')' as "작성자"
+, TITLE AS "제목"
+from board;
+
+--join
+SELECT b.BOARDNUM AS "글번호",b.usrid ||' '||'('|| u.USERNAME || ')' "작성자",
+Title "제목"
+from userinfo u, board b
+where u.usrid = b.usrid;
+
+-------------------------------2 ================================================== 수정필요
 SELECT R.BOARDNUM AS "BNUM",R.USRID AS "ID",U.USERNAME AS "NAME", 
 R.TEXT AS "TEXT" FROM USERINFO U, BOARD B, REPLY R
-WHERE U.USRID = b.usrid
-AND U.USRID = r.usrid;
+WHERE u.USRID = r.usrid
+AND r.USRID = b.usrid
+and b.usrid = u.usrid;
+
+SELECT r.BOARDNUM AS "BNUM",R.USRID AS "ID",USERNAME AS "NAME", 
+TEXT AS "TEXT" FROM userinfo u, REPLY r
+where r.usrid = u.usrid
+and r.BOARDNUM=1;
+
+
+
+
 -------------------------------3 ==================================================
-select b.BOARDNUM, u1.username , r.REPLYNUM, u2.username 
+select b.BOARDNUM as "본문글번호", u1.username "본문작성자" , r.REPLYNUM "리플번호", u2.username "리플 작성자"
 from userinfo u1, userinfo u2, REPLY r, BOARD b
 where 
 u1.usrid = b.usrid
@@ -196,80 +220,43 @@ and
 r.usrid = u2.usrid
 and
 b.BOARDNUM = r.BOARDNUM
-order by 3;
+order by
+b.BOARDNUM, r.REPLYNUM;
+
+
 -------------------------------4 ==================================================
 
 SELECT BOARDNUM as "본문글번호", 
 count(REPLYNUM) as "리플개수" 
 from REPLY
 GROUP BY BOARDNUM;
-
-
-
-SELECT DISTINCT(SELECT DISTINCT r.BOARDNUM from REPLY o) as "본문글번호" ,
-(SELECT count(r.REPLYNUM) from REPLY p) as "리플개수"
-from BOARD B, REPLY R
-where b.BOARDNUM = r.BOARDNUM
-order by 1;
-
- SELECT DISTINCT r.BOARDNUM  from REPLY r;
-SELECT BOARDNUM  from REPLY;
- 
-SELECT DISTINCT o.BOARDNUM from REPLY o where o.BOARDNUM
-(SELECT DISTINCT count(o.REPLYNUM) from REPLY o);
-
-
-
-
-SELECT b.BOARDNUM AS "본문글번호", 
-(select o.username from userinfo o,BOARD b where b.USRID = o.USRID) AS "본문작성자",
-R.REPLYNUM AS "리플번호", 
-u.username AS "리플 작성자" FROM userinfo u, BOARD B, REPLY R
-WHERE 
+--==========================================
+SELECT BOARDNUM as "본문글번호",
+count(*) as "리플개수"
+from REPLY r , BOARD b
+where
 b.BOARDNUM = r.BOARDNUM
-and
-r.USRID = u.usrid
-and
-o.USRID = u.usrid;
-select  , o.username from userinfo o;
+GROUP BY
+b.BOARDNUM;
+--=============================================
+UPDATE REPLY
+SET
+    TEXT='고칩니다';
+    
+UPDATE REPLY
+SET
+    TEXT = '고쳤다',
+    REGDATE = SYSDATE
+WHERE
+    REPLYNUM=5;
+    SELECT * FROM reply;
+    SELECT * FROM BOARD;
+ROLLBACK;
+COMMIT;
+--DELETE REPLY; 해당 데이터 다 날라감.
+--DELETE REPLY WHERE REPLYNUM=3; 3번 열 삭제
+DELETE REPLY 
+WHERE REPLYNUM=3;
 
-select x.boardnum, x.username 
-(select n.REPLYNUM from userinfo i, REPLY n
-where i.usrid = n.usrid)
-from 
-(select b.BOARDNUM, u.username from userinfo u, BOARD b
-where b.USRID = u.USRID
-and
-i.usrid = u.usrid) x;
-order by 1;
-select (select n.REPLYNUM from userinfo i, REPLY n
-where i.usrid = n.usrid),;
-
-SELECT * FROM USERINFO;
-SELECT * FROM BOARD;
-SELECT * FROM REPLY;
-
-select b.BOARDNUM as "본문글번호",
-i.username as "본문작성자",
-n.REPLYNUM as "리플번호"
---,(select u.username from userinfo u, REPLY r
---where r.usrid = u.usrid) as "리플작성자"
-from userinfo i, REPLY n , BOARD b
-where 
-i.usrid = b.usrid
-and
-n.usrid = i.usrid
-and
-b.usrid = n.usrid
-order by 3;
-
-
-select b.BOARDNUM, u1.username , r.REPLYNUM, u2.username 
-from userinfo u1, userinfo u2, REPLY r, BOARD b
-where 
-u1.usrid = b.usrid
-and
-r.usrid = u2.usrid
-and
-b.BOARDNUM = r.BOARDNUM
-order by 3;
+DELETE BOARD
+WHERE BOARDNUM = 1;
