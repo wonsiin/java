@@ -134,4 +134,10 @@ e.department_id = x.department_id;
 SELECT department_id, floor(AVG(salary)) as "avg_salary"
         FROM employees
         GROUP BY department_id;
-
+        
+        select * from usraddr;
+UPDATE 
+    SET 
+        usrname = '°¥°¥', phone='0100000',address='°¥ÆÎ'
+    WHERE 
+        usrid = TOTO;
