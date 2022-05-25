@@ -15,7 +15,7 @@ create table cooperation                                              --메인 테�
     usrid VARCHAR2(20) PRIMARY key,                        --유저 아이디
     pass number not null,                                                --페스워드
     usrname VARCHAR2(20) not null,                               --이름
-    teamnumber number not null                                    --팀넘버
+    teamnumber REFERENCES team(teamnumber) ON DELETE CASCADE        --팀넘버
 );
 
 create table team                                                           --팀 테이블
@@ -32,15 +32,19 @@ create table schedule                                                   --일정관
     condition number CHECK (condition in('0','1','2')),                --상태
     important number CHECK (important in('0','1')),                   --중요도
     startdate date not null,                                                         --시작일
-    exdate date not null                                                              --끝나는일
+    exdate date not null,                                                              --끝나는일
+    teamnumber REFERENCES team(teamnumber) ON DELETE CASCADE --팀번호fk
+    
 );
+
+create SEQUENCE business_seq;                                           --할일 시퀀스
 
 create table business                                                           --할일 테이블
 (
-    schedule_seq number REFERENCES schedule(schedule_seq) ON DELETE CASCADE,                                                            --시퀀스 fk
-    teamnumber number REFERENCES team(teamnumber) ON DELETE CASCADE,                                                               --team fk
-    substance varchar2(2000) not null,                                          --내용
-    usrid VARCHAR2(20) REFERENCES cooperation(usrid) ON DELETE CASCADE
+    business_seq number PRIMARY key,                                                                              --시퀀스 pk
+    teamnumber number REFERENCES team(teamnumber) ON DELETE CASCADE,                --team fk
+    substance varchar2(2000) not null,                                                                                     --내용
+    usrid VARCHAR2(20) REFERENCES cooperation(usrid) ON DELETE CASCADE                     --id fk
 );
 
 create SEQUENCE bulletin_seq;                                          --게시판 시퀀스
@@ -48,10 +52,10 @@ create SEQUENCE bulletin_seq;                                          --게시판 
 create table bulletin                                                             --게시판 테이블
 (
     bulletin_seq number PRIMARY key,                          --게시판 시퀀스 pk
-    teamnumber number REFERENCES team(teamnumber) ON DELETE CASCADE,                                                              --team fk
+    teamnumber number REFERENCES team(teamnumber) ON DELETE CASCADE,       --team fk
     title varchar2(50) not null,                                                        --제목
     substance varchar2(2000) not null,                                           --내용
-    usrid VARCHAR2(20) REFERENCES cooperation(usrid) ON DELETE CASCADE
+    usrid VARCHAR2(20) REFERENCES cooperation(usrid) ON DELETE CASCADE           --id fk
 );
 CREATE SEQUENCE Comm_seq;                                                --덧글 시퀀스
 create table Comm                                                                         --덧글 테이블

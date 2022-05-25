@@ -3,6 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="net.scit.dao.CooperationMapper">
+<mapper namespace="net.scit.mini.dao.CooperationMapper">
+
+<select id="regist" parameterType="Cooperation">
+	INSERT INTO Cooperation
+	(usrid, pass, usrname, teamnumber, teamname)
+	Values
+	(#{usrid},#{pass},#{usrname},#{teamnumber},#{teamname})
+</select>
+
+<select id="findById" resultType="Cooperation" parameterType="string">
+		SELECT 
+			usrid
+		FROM
+		Cooperation
+		where usrid = #{usrid}
+	</select>
 	
 </mapper>

@@ -5,6 +5,10 @@
 <configuration>
 
 	<properties resource="db.properties" />
+	
+	<typeAliases >
+		<typeAlias type="net.scit.mini.vo.CooperationVO" alias="Cooperation"/>
+	</typeAliases>
 
 	<environments default="development">
 		<environment id="development">
