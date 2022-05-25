@@ -25,8 +25,8 @@
 HIRE_DATE  LIKE '05%'
  ORDER BY 3 DESC;
 --4) o
-SELECT e1.first_name "사원의 성씨",e1.salary"급여",
-TRUNC(SYSDATE- E1.HIRE_DATE) AS "근무일수", e2.first_name AS "매니저명"
+SELECT e1.last_name "사원의 성씨",e1.salary"급여",
+TRUNC(SYSDATE- E1.HIRE_DATE) AS "근무일수", e2.last_name AS "매니저명"
 FROM employees E1, employees E2
 WHERE e1.MANAGER_ID = e2.employee_id;
 --5 o
@@ -42,16 +42,16 @@ e.department_id = x.department_id;
 (SELECT e1.department_id,TRUNC(AVG(salary)) FROM employees E1
 GROUP BY department_id);
 
---6 o ???
+--6 o 
 SELECT FIRST_NAME, SALARY,
 NVL(commission_pct,0)"commission_pct", NVL(department_id,0)"department_id"
 FROM(SELECT * FROM employees
 WHERE department_id = '80'
-order by 2 DESC)
-order by 3 DESC;
+order by commission_pct DESC)
+order by 2 DESC;
 
 --7 o
-SELECT FIRST_NAME,SALARY, country_name 
+SELECT last_name,SALARY, country_name 
 FROM employees E, departments D, locations L,countries c
 WHERE c.country_name = 'United States of America'
 and e.department_id = d.department_id
@@ -59,9 +59,12 @@ and d.location_id = l.location_id
 and  e.salary >= 9000
 ORDER by 2;
 --8 o
-SELECT first_name,max(salary),min(salary),round(AVG(salary),2)"평균"
-FROM employees
-GROUP BY first_name;
+select d.department_name,x."인원수",x."최대금액",x."최소금액",x."평균"
+from departments d,
+(select department_id,count(*)"인원수",max(salary) "최대금액",min(salary) "최소금액",trunc(AVG(salary),2)"평균" 
+from employees  GROUP BY department_id) x
+where not x."최대금액" = x."최소금액"
+and d.department_id = x.department_id;
 --9 o
 update
 employees
@@ -80,20 +83,16 @@ max(salary)"최고급여",min(salary)"최저급여",
 Floor(AVG(salary))"평균급여",sum(salary)"급여총액"
 from employees e    --부분
 GROUP BY e.department_id) x
-where x."부서번호" = d.department_id;
+where x."부서번호" = d.department_id
+and x."사원수" >= 3;
 --11 o
 select * from employees;
-SELECT e1.employee_id ,e1.last_name "이름", e1.first_name "성",
+SELECT e1.employee_id ,e1.first_name "이름",e1.last_name "성", 
 E1.HIRE_DATE AS "입사일", nvl2(e2.last_name,e2.last_name,'Nomanager') AS "관리자명"
 FROM employees E1, employees E2
 WHERE e1.MANAGER_ID = e2.employee_id
 and e1.HIRE_DATE <= '05/01/01'
 ORDER by 4;
-
-(select HIRE_DATE from employees
-where
-HIRE_DATE >= '05/01/01');
-
 --12 o
 SELECT  d.department_name"부서명",
 sum(e.salary)"부서별 현재 급여함",
@@ -103,7 +102,7 @@ FROM departments d,employees e
 where d.department_id = e.department_id
 GROUP BY department_name
 ORDER by 1;
-sum(e.salary),E.SALARY,salary*0.1 as "특별상여금"
+
 
 --13 o
 CREATE SEQUENCE GIRL_GROUP_SEQ;
@@ -143,7 +142,8 @@ where TRUNC((sysdate - DEBUT_DATE)/365) > 5
 and i.group_no = g.group_no;
 
 --19 O
-select group_name ,TO_CHAR(DEBUT_DATE,'YYYY-MM-DD'),agency
+select group_name "걸그룹명",TO_CHAR(DEBUT_DATE,'YYYY-MM-DD')"데뷔날짜",
+agency "기획사"
 from girl_group 
 order by 2;
 --20 o
