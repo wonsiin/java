@@ -138,14 +138,14 @@ order by 2;
 -- 18) 1년 -> 5년 o
 select group_name,agency,member_name
 from girl_group i, GROUP_MEMBERS g
-where TRUNC((sysdate - DEBUT_DATE)/365) > 5
+where TRUNC((sysdate - DEBUT_DATE)/365) < 5
 and i.group_no = g.group_no;
 
 --19 O
 select group_name "걸그룹명",TO_CHAR(DEBUT_DATE,'YYYY-MM-DD')"데뷔날짜",
 agency "기획사"
 from girl_group 
-order by 2;
+order by 2 DESC;
 --20 o
 select group_name, case group_name
     when '걸스데이' then '데이지'
@@ -154,7 +154,8 @@ select group_name, case group_name
     when '여자친구' then '버디'
     when '블랙핑크' then '블링크'
     end as "팬클럽"
-    from girl_group;
+    from girl_group
+    order by 1;
 
 
 
