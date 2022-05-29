@@ -1,66 +1,89 @@
 package net.scit.dao;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Comparator;
+
+
 import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import net.scit.vo.FitnessVO;
 
 public class FitnessDAO {
+	SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
+	
 	
 	public int regist(FitnessVO vo) {
-		boolean result = list.add(vo);
-		if(result) return 1;
+		SqlSession session = null;
+		session = factory.openSession();
 		
-		return 0;
+		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
+		int result = mapper.regist(vo); //받은 데이터를 데이터 베이스로 옴긴다. i / d /u 는 commit이 들어가야함
+		session.commit();
+		
+		
+		return result;
 	}
-	public FitnessVO findById(String userid) {
-		FitnessVO fitnessvo = null;
-		
-		for(FitnessVO temp : list ) {
-			if(temp.getUsrId().equals(userid)) {
-				fitnessvo = temp;
-				break;
-			}
-		}
-		return fitnessvo;
-	}
-	public List<FitnessVO> findAll() {
-		
-		list.sort(new Comparator<FitnessVO>() {
 
-			public int compare(FitnessVO o1, FitnessVO o2) {
-				return o1.getUserName().compareTo(o2.getUserName());
-			}
-		});
-		list.forEach(x -> System.out.println(x + " "));
+//return list형테로 
+	public List<FitnessVO> findAll() {
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
+		List<FitnessVO> list = mapper.findAll();
 		return list;
 	}
 
-	public int delete(String userid) {
-		boolean result = list.removeIf(x -> x.getUsrId().equals(userid));
+	public FitnessVO findById(String usrid) {
+		SqlSession session = null;
+		session = factory.openSession();
 		
+		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
+		
+		FitnessVO vo = mapper.findById(usrid);//데이터를 가져올수 있는지 확인  (vo안에서)
+		return vo;
+	}
+
+	public int delete(String userid) {
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
+		int result = mapper.delete(userid);
+		if(result == 1) {
+			session.commit();
+			return 1;
+		}
 		return 0;
+		
+		
+		
 	}
 
 	public int update(FitnessVO vo) {
-		int no = searchPositionOfFitnessMember(vo.getUsrId());
-		list.removeIf(x -> (no != -1));
-		list.set(no, vo);
-		return 1;
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
+		int result = mapper.update(vo); //받은 데이터를 데이터 베이스로 옴긴다. i / d /u 는 commit이 들어가야함
+		session.commit();
+		
+		
+		return result;
 	}
 
-	private int searchPositionOfFitnessMember(String userid) {
-		for(int i=0; i<list.size(); ++i) {
-			if(list.get(i).getUsrId().equals(userid))
-				return i;
-		}
-		return -1;
+	public void getCount() {
+		SqlSession session = null;
+		session = factory.openSession();
+		
+		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
+		 mapper.getCount();
+		 if(mapper.getCount() == 0) {
+			 System.out.print("아무도 존재하지 않습니다.");
+			 System.out.println();
+			 return;
+		 }
+		System.out.println("현재 인원은 " + mapper.getCount()+ " 명 입니다. ");
 	}
 	
-
 }

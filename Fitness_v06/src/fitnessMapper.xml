@@ -4,5 +4,49 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.scit.dao.FitnessMapper">
+	<insert id="regist"  parameterType="FitnessVO">
+	INSERT INTO fitness
+	(usrid, usrname, height, weight, bmi, bmiResult)
+	Values
+	(#{usrid},#{usrname},#{height},#{weight},#{bmi},#{bmiResult})
+	</insert>
 	
+	<select id="findAll" resultType="FitnessVO">
+		SELECT 
+			usrid, usrname, height, weight, bmi, bmiResult, to_char(joindate, 'YYYY-MM-DD HH24:MI ') as joindate
+		FROM
+		fitness
+		ORDER BY usrid
+	</select>
+	
+	<select id="findById" resultType="FitnessVO" parameterType="string">
+		SELECT 
+			usrid, usrname, height, weight, bmi, bmiResult, to_char(joindate, 'YYYY-MM-DD HH24:MI ') as joindate
+		FROM
+		fitness
+		where usrid = #{usrid}
+	</select>
+	
+	<select id="getCount" resultType="int" >
+		SELECT 
+			count(*)
+		FROM
+		fitness
+	</select>
+	
+	
+	
+	<delete id="delete" parameterType="string">
+		DELETE
+		fitness
+		where usrid = #{usrid}
+	</delete>
+	
+		<update id="update"  parameterType="FitnessVO">
+	UPDATE fitness 
+	SET
+	usrname = #{usrname}, height = #{height}, weight = #{weight}, bmi = #{bmi}, bmiResult = #{bmiResult}
+	WHERE
+	usrid = #{usrid}
+	</update>
 </mapper>

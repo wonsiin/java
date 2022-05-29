@@ -10,7 +10,7 @@ public class FitnessVO implements Serializable, Comparable<FitnessVO>{
 	private double height;
 	private double weight;
 	private double bmi;
-	private BmiResult bmiResult;
+	private String bmiResult;
 	private String joindate;
 	
 	public FitnessVO() {}
@@ -20,11 +20,39 @@ public class FitnessVO implements Serializable, Comparable<FitnessVO>{
 			this.usrname = usrname;
 			this.height = height;
 			this.weight = weight;
-			
-			setBmi();
+
+			calcBmi();
 	}
-	
-	private void setBmi() { // DB랑 연동할때 사용
+ 
+	public String getUsrid() {
+		return usrid;
+	}
+
+	public void setUsrid(String usrid) {
+		this.usrid = usrid;
+	}
+
+	public String getUsrname() {
+		return usrname;
+	}
+
+	public void setUsrname(String usrname) {
+		this.usrname = usrname;
+	}
+
+	public String getBmiResult() {
+		return bmiResult;
+	}
+
+	public void setBmiResult(String bmiResult) {
+		this.bmiResult = bmiResult;
+	}
+
+	public void setBmi(double bmi) {
+		this.bmi = bmi;
+	}
+
+	private void calcBmi() { // DB랑 연동할때 사용
 		double tmp;
 		tmp = this.height * 0.01;
 		
@@ -39,17 +67,17 @@ public class FitnessVO implements Serializable, Comparable<FitnessVO>{
 	
 	private void setResult() {
 		if(bmi >= 35) {
-			bmiResult = BmiResult.고도비만;
+			bmiResult = "고도비만";
 		} else if(bmi >= 30) {
-			bmiResult = BmiResult.중도비만;
+			bmiResult = "중도비만";
 		} else if (bmi >= 25) {
-			bmiResult = BmiResult.경도비만;
+			bmiResult = "경도비만";
 		} else if (bmi >= 23) {
-			bmiResult = BmiResult.과체중;
+			bmiResult = "과체중";
 		} else if (bmi >= 18.5) {
-			bmiResult = BmiResult.정상;
+			bmiResult = "정상";
 		} else {
-			bmiResult = BmiResult.저체중;
+			bmiResult = "저체중";
 		}
 	}
 	
@@ -70,20 +98,21 @@ public class FitnessVO implements Serializable, Comparable<FitnessVO>{
 
 	public void setHeight(double height) {
 		this.height = height;
-		setBmi();
+		calcBmi();
 	}
 	public double getHeight() {
 		return height;
 	}
 	public void setWeight(double weight) {
 		this.weight = weight;
-		setBmi();
+		calcBmi();
 	}
 	public double getWeight() {
 		return weight;
 	}
 	public void output() {
-		System.out.printf(" %s 번째 %s님 안녕하세요. %n%s님의 해당키는%.1fcm이며 몸무게는 %.1fkg입니다.%nbmi는 %.1f이고, 최종결과는 %s입니다.%n",usrid,usrname,usrname,height,weight,bmi,bmiResult);
+		System.out.printf(" %s 번째 %s님 안녕하세요. %n%s님의 해당키는%.1fcm이며 몸무게는 %.1fkg입니다.%nbmi는 %.1f이고, 최종결과는 %s, 가입일은 %s 입니다.%n",usrid,usrname,usrname,height,weight,bmi,bmiResult,joindate
+			);
 	}
 	
 	public String getJoindate() {
@@ -98,7 +127,7 @@ public class FitnessVO implements Serializable, Comparable<FitnessVO>{
 	public String toString() {
 		//소수점 이하 2자리씩 출력
 		//%6.2f
-		String temp = String.format("아이디 :%5s, 이름 :%8s, 키 :%6.2f, 몸무계 :%6.2f, BMI :%6.2f, 결과 :%s", usrid,usrname,height,weight,bmi,bmiResult);
+		String temp = String.format("아이디 :%5s, 이름 :%8s, 키 :%6.2f, 몸무계 :%6.2f, BMI :%6.2f, 결과 :%s, 가입일 :%s", usrid,usrname,height,weight,bmi,bmiResult,joindate);
 		return temp;
 	}
 

@@ -7,6 +7,7 @@ import scit.dao.UserDAO;
 import scit.vo.User;
 import scit.vo.UserVO;
 
+
 public class UserUI {
 	UserDAO  dao = new UserDAO();
 	Scanner keyin = new Scanner(System.in);
@@ -21,15 +22,11 @@ public class UserUI {
 			switch(choice) {
 			case"1" : input(); break;
 			case"2" : printAll(); break;
-			case"3" : update(); break;
-			case"4" : delete(); break;
 			case"0" : 
 				System.out.print("** 프로그램을 종료합니다.");
 				System.exit(0);
 			default :
 				System.out.println("** 메뉴를 재 선택해주세요 :");
-			
-			
 			
 			}
 		}
@@ -49,42 +46,17 @@ public class UserUI {
 	}
 
 	private void input() {
-		String usrid, usrname, phone, address;
-		System.out.println("> 아이디 : ");
-		usrid = keyin.nextLine();
-		UserVO vo = dao.findById(usrid);
-		System.out.println(vo);
-		if(vo != null) {
-			System.out.println("** 그 아이디는 사용하실수 없습니다.");
-			return;
-		}
-		// 입력받은 아이디가 DB에 존재하는지 여부를 판단해야함 (DB에 쿼리를 날려봐야 알수있음)
-		//SELECT *FROM USR WHERE USRID = 'mbc' ; 1 or 0
+		String title,substance;
 		
-		System.out.println("> 이름 : ");
-		usrname = keyin.nextLine();
-		if(usrname.length() == 0) {
-			System.out.println(" ** 이름을 입력해 주세요");
-			return;
-		}
+		System.out.print("> 글 제목 :  ");
+		title = keyin.nextLine();
 		
-		System.out.println("> 전화번호 : ");
-		phone = keyin.nextLine();
-		if(usrname.length() == 0) {
-			System.out.println(" ** 전화번호를 입력해 주세요");
-			return;
-		}
+		System.out.print("> 내   용 :  ");
+		substance = keyin.nextLine();
+	
+		UserVO vo = new UserVO(title, substance);
 		
-		System.out.println("> 주소 : ");
-		address = keyin.nextLine();
-		if(usrname.length() == 0) {
-			System.out.println(" ** 주소를 입력해 주세요");
-			return;
-		}
-		
-		User user = new User(usrid, usrname, phone, address); // 값 입력받음
-		
-		int result = dao.insertUser(user);
+		int result = dao.insertUser(vo);
 		
 		System.out.println(result + "명을 저장하엿습니다.");
 		

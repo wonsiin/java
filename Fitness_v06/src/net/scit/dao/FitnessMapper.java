@@ -11,7 +11,7 @@ public interface FitnessMapper { //2 data mapper
 	//아이디로 조회(r)
 	public FitnessVO findById(String userid);
 	
-	//전체 데이터 조회(r)
+	//전체 데이터 조회(r) 정수가 나오기도함
 	public List<FitnessVO> findAll();
 	
 	//삭제 (d)
@@ -19,5 +19,8 @@ public interface FitnessMapper { //2 data mapper
 	
 	//수정(u)
 	public int update(FitnessVO vo);
+	
+	//인원수 조회 select count(*)from fitness
+	public int getCount();
 	
 }
