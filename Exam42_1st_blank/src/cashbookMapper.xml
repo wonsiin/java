@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.scit.cashbook.dao.CashbookMapper">
+	<!-- 지출 항목 조회 -->
+	<select id="selectCashItem" resultType="CashItem" >
+	select * from cashitems
+	order by itemid
+	</select>
+	
+	
+	<!-- 지출 내역 저장 -->
+	<insert id="insertCashbook" parameterType="Cashbook">
+		Insert into Cashbook
+		(seq,itemid,detail, amount ,note)
+		values
+		(cashbook_seq.nextval,#{itemid},#{detail},#{amount},#{note})
+	
+	</insert>
+
+	<!-- 연도/월별 조회  -->
+	<select id="ReadCashbookByDate" resultType="Cashbook" parameterType="String">
+		select seq,dates,detail,amount,note from Cashbook
+		where dates LIKE #{dates}||+'/__'
+		order by 2 desc
+	
+	</select>
+
+	
+	<!-- 내역 삭제 -->
+	<delete id="deleteCashbook" parameterType="int">
+		delete from Cashbook where seq = #{seq}
+	</delete>
+	
+	<!-- 월별 지출 통계보기 -->
+	
+	<select id="statatics" resultType="TotalAmount" parameterType="String">
+		select c.itemname as "itemname",sum(b.amount) as "total" from Cashbook b , cashitems c
+        where b.itemid = c.itemid
+        and b.dates LIKE #{dates}||+'/__'
+        group by c.itemname
+        order by c.itemname
+	
+	</select>
+
+</mapper>

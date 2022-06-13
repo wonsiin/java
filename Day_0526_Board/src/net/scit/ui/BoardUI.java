@@ -1,189 +1,361 @@
 package net.scit.ui;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import net.scit.dao.BoardDAO;
+import net.scit.dao.ReplyDAO;
 import net.scit.vo.Board;
+import net.scit.vo.Reply;
 
 public class BoardUI {
 	Scanner keyin = new Scanner(System.in);
-	Map<String, Object> map= new HashMap<>();
-	BoardDAO boardDao = new BoardDAO();
-//	ReplyDAO ReplyDao = new ReplyDAO();
-	
+	BoardDAO boardDAO = new BoardDAO();
+	ReplyDAO replyDAO = new ReplyDAO();
+
+
 	public BoardUI() {
 		String choice;
-		while(true) {
+
+		while (true) {
 			mainMenu();
+
 			choice = keyin.nextLine();
-			
+
 			switch (choice) {
-			case "1": input(); break;
-			case "2": list(); break;
-			case "3": read(); break;
-			case "4": delete(); break;
-			case "5": update(); break;
-			case "6": search(); break;
-			case "7": count(); break;
-			case "0": 
-				System.out.println("** ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+			case "1":
+				input();
+				break;
+			case "2":
+				list();
+				break;
+			case "3":
+				read();
+				break;
+			case "4":
+				delete();
+				break;
+			case "5":
+				update();
+				break;
+			case "6":
+				search();
+				break;
+			case "0":
+				System.out.println("** í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 				System.exit(0);
 			default:
-				System.out.println("err) ¸Ş´º¸¦ ´Ù½Ã ¼±ÅÃÇØ ÁÖ¼¼¿ä");
+				System.out.println("err ) ë©”ë‰´ë¥¼ ë‹¤ì‹œ ì„ íƒí•´ì£¼ì„¸ìš”.ã„´");
 			}
-//			keyin.nextLine(); //¹öÆÛ ºñ¿ì±â
+			// keyin.nextLine();
 		}
-	}
-
-	private void count() {
-		boardDao.getCount();
-		
 	}
 
 	private void input() {
-		String writer;
-		String title;
-		String text;
-		
-		System.out.print(">Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä : ");
-		title = keyin.nextLine();
-		if(title.trim().equals("")) {	//±ÛÀÚ¸¸ ÀÔ·ÂÇÒ¼öÀÖ°Ô ´Ù¸¥°Ô µé¾î¿À¸é ÀÔ·Â¾ÈµÇ°Ô
-			System.out.println("¹®ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
-			return;
-		}
-		System.out.print(">ÀÛ¼ºÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		String writer, title, text;
+
+		System.out.println("> ì‘ì„±ì");
 		writer = keyin.nextLine();
-		if(writer.trim().equals("")) {	//±ÛÀÚ¸¸ ÀÔ·ÂÇÒ¼öÀÖ°Ô ´Ù¸¥°Ô µé¾î¿À¸é ÀÔ·Â¾ÈµÇ°Ô
-			System.out.println("¹®ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
+
+		if (writer.trim().equals("")) {
+			System.out.println("ì‘ì„±ìê°€ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 			return;
 		}
-		System.out.println(">³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä : ");
+
+		System.out.println(" > ì œëª©");
+		title = keyin.nextLine();
+
+		if (title.trim().equals("")) {
+			System.out.println("ì œëª©ì´ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+			return;
+		}
+
+		System.out.println(" > ë‚´ìš©");
 		text = keyin.nextLine();
-		if(text.trim().equals("")) {	//±ÛÀÚ¸¸ ÀÔ·ÂÇÒ¼öÀÖ°Ô ´Ù¸¥°Ô µé¾î¿À¸é ÀÔ·Â¾ÈµÇ°Ô
-			System.out.println("¹®ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
+
+		if (text.trim().equals("")) {
+			System.out.println("ë‚´ìš©ì´ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 			return;
 		}
+
 		Board board = new Board(writer, title, text);
-		
-		int result = boardDao.weiterBoard(board);
-		map.put(board.getText(), board);
-		System.out.printf("** %d ¸í È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.",result);
+
+		int result = boardDAO.writeBoard(board);
+
+		if (result == 1) {
+			System.out.println(result + "ê±´ ì…ë ¥ ì™„ë£Œ");
+		} else {
+			System.out.println("ì˜¤ë¥˜ ë°œìƒ");
+		}
+
 	}
 
 	private void list() {
-		List<Board> list = boardDao.listBoard();
-		Iterator<Board> iter = list.iterator();
-		
-		while(iter.hasNext())
-			System.out.println(iter.next());
-		System.out.println();
+
+		System.out.println("======== ê²Œì‹œê¸€ ëª©ë¡ ========");
+
+		List<Board> list = boardDAO.listBoard();
+
+		for (Board board : list) {
+			System.out.println(board);
+		}
+
 	}
 
+	// ê°œë³„ì¡°íšŒ
 	private void read() {
-		int boardnum;
-		list();
-		System.out.print(">ÀĞÀ» ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
-		boardnum = keyin.nextInt();
+
+		List<Board> list = boardDAO.listBoard();
+
+		for (Board board : list) {
+			System.out.println(list);
+		}
+
+		System.out.println("ì¡°íšŒí•  ê¸€ ë²ˆí˜¸ >");
+		String boardnum = keyin.next();
+
 		keyin.nextLine();
-		Board result = boardDao.readBoard(boardnum);
-		
-		System.out.println(result.getText());
-		
-		new ReplyUI(result.getBoardnum());
-		
-		
-		
-		
+
+		Board board = boardDAO.readBoard(boardnum);
+
+		board.output();
+
+		List<Reply> relist = replyDAO.listReply(boardnum);
+
+		for (Reply reply : relist) {
+			System.out.println(relist);
+		}
+
+		submenu();
+
+		String choice = keyin.nextLine();
+
+		switch (choice) {
+		case "1":
+			InsertReply(boardnum);
+			break;
+
+		case "2":
+			UpdateReply();
+			break;
+
+		case "3":
+			deleteReply();
+			break;
+		}
+
+	}
+
+	private void InsertReply(String boardnum) {
+		String writer, text;
+
+		System.out.println("> ì‘ì„±ì");
+		writer = keyin.nextLine();
+
+		if (writer.trim().equals("")) {
+			System.out.println("ì‘ì„±ìê°€ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+			return;
+		}
+
+		System.out.println(" > ë‚´ìš©");
+		text = keyin.nextLine();
+
+		if (text.trim().equals("")) {
+			System.out.println("ë‚´ìš©ì´ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+			return;
+		}
+
+		Reply vo = new Reply(boardnum, writer, text);
+
+		int result = replyDAO.writeReply(vo);
+
+		System.out.println(result + "ê±´ ë“±ë¡ ì™„ë£Œ");
+	}
+
+	private void UpdateReply() {
+		System.out.println("ìˆ˜ì •í•  ëŒ“ê¸€ ë²ˆí˜¸ >");
+		String replynum = keyin.nextLine();
+
+		Reply reply = replyDAO.selectReply(replynum);
+
+		if (reply == null) {
+			System.out.println("ìˆ˜ì •í•  ëŒ“ê¸€ì´ ì—†ìŠµë‹ˆë‹¤.");
+			return;
+		}
+
+		System.out.println("ìˆ˜ì •í•  ëŒ“ê¸€ ë‚´ìš© > ");
+		String newText = keyin.nextLine();
+
+		reply.setText(newText);
+
+		int result = replyDAO.updateReply(reply);
+
+		System.out.println(result + "ê±´ ìˆ˜ì • ì™„ë£Œ");
+
+	}
+
+	private void deleteReply() {
+		String replynum;
+
+		System.out.println("ì‚­ì œí•  ëŒ“ê¸€ ë²ˆí˜¸");
+
+		replynum = keyin.nextLine();
+
+		Reply reply = replyDAO.selectReply(replynum);
+
+		if (reply == null) {
+			System.out.println("ìˆ˜ì •í•  ëŒ“ê¸€ì´ ì—†ìŠµë‹ˆë‹¤.");
+			return;
+		}
+
+		System.out.println(reply);
+
+		System.out.println("ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ? (y/n)");
+
+		String ans = keyin.nextLine();
+
+		if (!ans.equals("y")) {
+			System.out.println("ëŒ“ê¸€ ì‚­ì œë¥¼ ì·¨ì†Œí•©ë‹ˆë‹¤.");
+			return;
+		}
+
+		int result = replyDAO.deleteReply(replynum);
+
+		System.out.println(result + "ê±´ ì‚­ì œ ì™„ë£Œ");
+	}
+
+	private void submenu() {
+		System.out.println("=============[ëŒ“   ê¸€]=============");
+		System.out.println("			1) ëŒ“ê¸€ ì‘ì„±");
+		System.out.println("			2) ëŒ“ê¸€ ìˆ˜ì •");
+		System.out.println("			3) ëŒ“ê¸€ ì‚­ì œ");
+		System.out.println("----------------------------------");
+		System.out.println("   	> ì„ íƒ");
 	}
 
 	private void delete() {
+		System.out.println("** ì‚­ì œë¥¼ ì„ íƒí–ˆìŠµë‹ˆë‹¤.");
+
 		String answer;
-		int boardnum;
-		System.out.print("»èÁ¦ÇÒ ID´Â ¹«¾ùÀÔ´Ï±î : ");
-		boardnum = keyin.nextInt();
-		keyin.nextLine();
-		Board b = boardDao.findById(boardnum);
-		if(b == null) {
-			System.out.println("** ÇØ´ç ¾ÆÀÌµğÀÇ È¸¿øÀÌ ¾ø½À´Ï´Ù.");
+
+		int count = boardDAO.getCount();
+
+		if (count == 0) {
+			System.out.println("ì‚­ì œí•  íšŒì›ì´ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
-		System.out.print("** Á¤¸»·Î Å»ÅğÇÏ½Ã°Ú½À´Ï±î? (y/n)");
-		answer = keyin.next();
-		if(answer.equals("y")) {
-			boardDao.deletBoard(boardnum); // ¸®ÅÏ°ªÀ» ¹ŞÁö ¾Ê¾Æµµ µÈ´Ù. ==> 
-			System.out.println("** »èÁ¦ ¿Ï·á\n");
+
+		System.out.print("ì‚­ì œí•  ê¸€ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš” >>");
+		String boardnum = keyin.nextLine();
+
+		Board board = boardDAO.readBoard(boardnum);
+
+		if (board == null) {
+			System.out.println("í•´ë‹¹ ê¸€ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			return;
-		}else {
-			System.out.println("** »èÁ¦ ÀÛ¾÷ÀÌ Ãë¼ÒµÇ¾ú½À´Ï´Ù.");
 		}
-		
+
+		System.out.println("ì‘ì„±ìëª…ì„ ì…ë ¥í•˜ì„¸ìš” >>");
+
+		String writer = keyin.nextLine();
+
+		if (!board.getWriter().equals(writer)) {
+			System.out.println("ì‘ì„±ìëª…ì´ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+			return;
+		}
+
+		System.out.println("ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
+
+		answer = keyin.nextLine();
+
+		if (answer.equals("y")) {
+			int result = boardDAO.deleteBoard(boardnum);
+
+			if (result == 1) {
+				System.out.println("ì‚­ì œ ì™„ë£Œ");
+			} else {
+				System.out.println("ì‚­ì œ ì‹¤íŒ¨");
+			}
+		} else {
+			System.out.println("íƒˆí‡´ê°€ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		}
 	}
 
 	private void update() {
-		int boardnum;
-		String title;
-		String text;
-		list();
-		System.out.print(">¼öÁ¤ÇÒ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
-		boardnum = keyin.nextInt();
-		keyin.nextLine();
-		if(boardnum == 0) {
-			System.out.println("** ÇØ´ç ¹øÈ£°¡ ¾ø½À´Ï´Ù.");
+		System.out.println("ìˆ˜ì •ì„ ì„ íƒí–ˆìŠµë‹ˆë‹¤.");
+
+		int count = boardDAO.getCount();
+
+		if (count == 0) {
+			System.out.println("ìˆ˜ì •í•  ê¸€ì´ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
-		System.out.println("====¼ö  Á¤====");
-		System.out.print("> Á¦¸ñÀº ¹«¾ùÀÎ°¡¿ä : ");
-		title = keyin.nextLine();
-		if(title.trim().equals("")) {
-			System.out.println("¹®ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
-			return;
-		}
-		System.out.println("> ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä : ");
-		text = keyin.nextLine();
-		if(text.trim().equals("")) {
-			System.out.println("¹®ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
-			return;
-		}
-		Board board = boardDao.readBoard(boardnum);
-		board.setText(text);
+
+		System.out.println("ì‚­ì œí•  ê¸€ ë²ˆí˜¸ >");
+		String boardnum = keyin.next();
+
+		Board board = boardDAO.readBoard(boardnum);
+
+		System.out.println(board);
+
+//		String answer = keyin.nextLine();
+
+		System.out.println("ìƒˆë¡œìš´ ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”.");
+		String title = keyin.nextLine();
 		board.setTitle(title);
-		
-		int result = boardDao.updateBoard(board);
-		System.out.printf("** %d ¸í ¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.",result);
-		
+
+		System.out.println("ìƒˆë¡œìš´ ë³¸ë¬¸ì„ ì…ë ¥í•˜ì„¸ìš”");
+		String text = keyin.nextLine();
+		board.setText(text);
+
+		int result = boardDAO.updateBoard(board);
+
+		System.out.println(result + "ê±´ ìˆ˜ì • ì™„ë£Œ");
+
 	}
 
 	private void search() {
-		List<Board> list = boardDao.listBoard();
-		Iterator<Board> iter = list.iterator();
-		Board board = new Board();
-		keyin.nextLine();
-		System.out.print("> ³»¿ëÁß Ã£À» ´Ü¾î¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
-		String a = keyin.nextLine();
-		map.put(a, board);
-		while(iter.hasNext())
-			System.out.println(iter.next());
-		
-		boardDao.searchBoard(map);
-		System.out.println(map.size());
+		String searchWord = null, searchItem = null, choice;
+
+		System.out.println("\n     [ê²Œì‹œê¸€ ê²€ìƒ‰]");
+		System.out.println("	1) ì‘ì„±ì ê²€ìƒ‰    2) ì œëª© ê²€ìƒ‰   3) ë‚´ìš© ê²€ìƒ‰   0) ëŒì•„ê°€ê¸°");
+		choice = keyin.nextLine();
+		switch (choice) {
+		case "1":	searchItem = "writer";	break;
+		case "2":	searchItem = "title";break;
+		case "3":searchItem = "text";break;
+		default:
+			System.out.println("** ë©”ë‰´ ì„ íƒ ì˜¤ë¥˜");
+			return;
+		}
+		System.out.print("** ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+		searchWord = keyin.nextLine();
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchItem", searchItem);
+		map.put("searchWord", searchWord);
+		List<Board> list = boardDAO.searchBoard(map);
+		System.out.println("<< ê²€ìƒ‰ ê²°ê³¼ >> ");
+		if (list == null) {
+			System.out.println("ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.");
+			return;
+		}
+
+		list.forEach(x -> System.out.println(x));
 	}
 
 	private void mainMenu() {
-		System.out.println();
-		System.out.println("============[¿ÀÇÂ °Ô½ÃÆÇ]===============");
-		System.out.println("      1) °Ô½Ã±Û ¾²±â");
-		System.out.println("      2) ÀüÃ¼ ¸ñ·Ï Á¶È¸");
-		System.out.println("      3) °Ô½Ã±Û ÀĞ±â");
-		System.out.println("      4) °Ô½Ã±Û »èÁ¦");
-		System.out.println("      5) °Ô½Ã±Û ¼öÁ¤");
-		System.out.println("      6) °Ô½Ã±Û °Ë»ö");
-		System.out.println("      7) ÃÑ °Ô½Ã±Û ¼ö");
-		System.out.println("      0) ÇÁ·Î±×·¥ Á¾·á");
-		System.out.println("==================================");
-		System.out.print	("                ¼±ÅÃ > ");
+		System.out.println("===== [ì˜¤í”ˆ ê²Œì‹œíŒ] =====");
+		System.out.println("      1) ê²Œì‹œê¸€ ì“°ê¸°");
+		System.out.println("      2) ì „ì²´ ëª©ë¡ ì¡°íšŒ");
+		System.out.println("      3) ê²Œì‹œê¸€ ì½ê¸°");
+		System.out.println("      4) ê²Œì‹œê¸€ ì‚­ì œ");
+		System.out.println("      5) ê²Œì‹œê¸€ ìˆ˜ì •");
+		System.out.println("      6) ê²Œì‹œê¸€ ê²€ìƒ‰");
+		System.out.println("      0) í”„ë¡œê·¸ë¨ ì¢…ë£Œ");
+		System.out.println("=======================");
+		System.out.println("         ì„ íƒ > ");
 	}
+
 }

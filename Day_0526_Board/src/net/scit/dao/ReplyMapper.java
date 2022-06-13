@@ -2,19 +2,22 @@ package net.scit.dao;
 
 import java.util.List;
 
-import net.scit.vo.Board;
 import net.scit.vo.Reply;
 
 public interface ReplyMapper {
-			//´ñ±Û ¸ñ·Ï
-	public List<Reply> listReply(int boardnum);
-			//´ñ±Û ¾²±â
-	public int writeReply(Reply Reply);
-			//´ñ±Û »èÁ¦
-	public int deleteReply(int replynum);
-			//´ñ±Û ¼öÁ¤
-	public int updateReply(Reply replynum);
+
+	//ëŒ“ê¸€ ëª©ë¡
+	public List<Reply> listReply(String boardnum);
+
+	//ëŒ“ê¸€ ì“°ê¸°
+	public int writeReply(Reply reply);
 	
-	public Reply findById(int boardnum);
+	//í•˜ë‚˜ì˜ ëŒ“ê¸€ ê°ì²´ ë¶ˆëŸ¬ì˜¤ê¸°
+	public Reply selectReply(String replynum);
 	
+	//ëŒ“ê¸€ ì‚­ì œ
+	public int deleteReply(String replynum);
+	
+	//ëŒ“ê¸€ ìˆ˜ì •
+	public int updateReply(Reply reply);
 }

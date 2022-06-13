@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.scit.dao.BoardMapper">
+		<insert id="weiterBoard" parameterType="Board">
+			INSERT INTO Board
+			(boardnum,writer,title,text)
+			VALUES
+			(board_seq.nextval,#{writer},#{title},#{text})
+		</insert>
+		
+		<select id="listBoard" resultType="Board">
+		select *
+		from Board
+		</select>
+		
+		<select id="readBoard" resultType="Board" parameterType="int">
+		select *
+		from Board 
+		where boardnum = #{boardnum}
+		</select>
+		
+		<select id="findById" resultType="Board" parameterType="int">
+		SELECT 
+			boardnum
+		FROM
+		Board
+		where boardnum = #{boardnum}
+	</select>
+	<delete id="deletBoard" parameterType="int">
+		DELETE
+		Board
+		where boardnum = #{boardnum}
+		</delete>
+		
+		<select id="searchBoard" resultType="Board" parameterType="int">
+		SELECT 
+			*
+		FROM
+		Board
+		where text like '%#{text}%'
+	</select>
+	<update id= "incrementHitcount"  parameterType="Board">
+	UPDATE Board
+	SET
+	hitcount = hitcount +1
+	WHERE
+	boardnum = #{boardnum}
+	</update>
+	
+	
+	
+	<update id= "updateBoard"  parameterType="Board">
+	UPDATE Board
+	SET
+	title = #{title}, writer = #{writer}, text = #{text}
+	WHERE
+	boardnum = #{boardnum}
+	</update>
+	
+	<select id="getCount" resultType="int">
+		SELECT count(*) FROM Board
+	</select>
+	
+
+</mapper>

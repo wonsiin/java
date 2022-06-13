@@ -17,14 +17,14 @@ public class FitnessDAO {
 		session = factory.openSession();
 		
 		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
-		int result = mapper.regist(vo); //¹ŞÀº µ¥ÀÌÅÍ¸¦ µ¥ÀÌÅÍ º£ÀÌ½º·Î ¿È±ä´Ù. i / d /u ´Â commitÀÌ µé¾î°¡¾ßÇÔ
+		int result = mapper.regist(vo);
 		session.commit();
 		
 		
 		return result;
 	}
 
-//return listÇüÅ×·Î 
+//return listï¿½ï¿½ï¿½×·ï¿½ 
 	public List<FitnessVO> findAll() {
 		SqlSession session = null;
 		session = factory.openSession();
@@ -40,7 +40,7 @@ public class FitnessDAO {
 		
 		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
 		
-		FitnessVO vo = mapper.findById(usrid);//µ¥ÀÌÅÍ¸¦ °¡Á®¿Ã¼ö ÀÖ´ÂÁö È®ÀÎ  (vo¾È¿¡¼­)
+		FitnessVO vo = mapper.findById(usrid);//ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½  (voï¿½È¿ï¿½ï¿½ï¿½)
 		return vo;
 	}
 
@@ -65,7 +65,7 @@ public class FitnessDAO {
 		session = factory.openSession();
 		
 		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
-		int result = mapper.update(vo); //¹ŞÀº µ¥ÀÌÅÍ¸¦ µ¥ÀÌÅÍ º£ÀÌ½º·Î ¿È±ä´Ù. i / d /u ´Â commitÀÌ µé¾î°¡¾ßÇÔ
+		int result = mapper.update(vo); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½È±ï¿½ï¿½. i / d /u ï¿½ï¿½ commitï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ï¿½ï¿½
 		session.commit();
 		
 		
@@ -79,11 +79,11 @@ public class FitnessDAO {
 		FitnessMapper mapper = session.getMapper(FitnessMapper.class);
 		 mapper.getCount();
 		 if(mapper.getCount() == 0) {
-			 System.out.print("¾Æ¹«µµ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			 System.out.print("ï¿½Æ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 			 System.out.println();
 			 return;
 		 }
-		System.out.println("ÇöÀç ÀÎ¿øÀº " + mapper.getCount()+ " ¸í ÀÔ´Ï´Ù. ");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½ï¿½ï¿½ " + mapper.getCount()+ " ï¿½ï¿½ ï¿½Ô´Ï´ï¿½. ");
 	}
 	
 }

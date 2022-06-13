@@ -1,11 +1,22 @@
 content_assist_disabled_computers=org.eclipse.jdt.ui.textProposalCategory\u0000org.eclipse.jdt.ui.javaPostfixProposalCategory\u0000org.eclipse.jdt.ui.javaAllProposalCategory\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\u0000org.eclipse.jdt.ui.javaChainProposalCategory\u0000
-content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.util.Iterator"><rhs name\="java.util.Scanner"/></lhs><lhs name\="java.io.Closeable"><rhs name\="java.util.Scanner"/></lhs><lhs name\="java.lang.AutoCloseable"><rhs name\="java.util.Scanner"/></lhs><lhs name\="scit.vo.User"><rhs name\="scit.vo.User"/></lhs><lhs name\="net.scit.mini.vo.CooperationVO"><rhs name\="net.scit.mini.vo.CooperationVO"/></lhs><lhs name\="net.scit.dao.BoardDAO"><rhs name\="net.scit.dao.BoardDAO"/></lhs><lhs name\="net.scit.vo.Board"><rhs name\="net.scit.vo.Board"/></lhs><lhs name\="java.util.Map"><rhs name\="java.util.HashMap"/></lhs><lhs name\="net.scit.vo.Reply"><rhs name\="net.scit.vo.Reply"/></lhs></history>
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.util.Iterator"><rhs name\="java.util.Scanner"/></lhs><lhs name\="java.io.Closeable"><rhs name\="java.util.Scanner"/></lhs><lhs name\="java.lang.AutoCloseable"><rhs name\="java.util.Scanner"/></lhs><lhs name\="scit.vo.User"><rhs name\="scit.vo.User"/></lhs><lhs name\="net.scit.mini.vo.CooperationVO"><rhs name\="net.scit.mini.vo.CooperationVO"/></lhs><lhs name\="net.scit.dao.BoardDAO"><rhs name\="net.scit.dao.BoardDAO"/></lhs><lhs name\="net.scit.vo.Board"><rhs name\="net.scit.vo.Board"/></lhs><lhs name\="java.util.Map"><rhs name\="java.util.HashMap"/></lhs><lhs name\="net.scit.vo.Reply"><rhs name\="net.scit.vo.Reply"/></lhs><lhs name\="net.scit.dao.UserDAO"><rhs name\="net.scit.dao.UserDAO"/></lhs><lhs name\="net.scit.vo.UserVO"><rhs name\="net.scit.vo.UserVO"/></lhs><lhs name\="net.scit.vo.BoardVO"><rhs name\="net.scit.vo.BoardVO"/></lhs><lhs name\="net.scit.ui.NoticeUI"><rhs name\="net.scit.ui.NoticeUI"/></lhs><lhs name\="net.scit.ui.ReplyUI"><rhs name\="net.scit.ui.ReplyUI"/></lhs><lhs name\="java.awt.LayoutManager"><rhs name\="java.awt.FlowLayout"/></lhs><lhs name\="javax.accessibility.Accessible"><rhs name\="java.awt.Button"/></lhs><lhs name\="java.awt.Component"><rhs name\="java.awt.Button"/></lhs><lhs name\="java.awt.image.ImageObserver"><rhs name\="java.awt.Button"/></lhs><lhs name\="java.awt.MenuContainer"><rhs name\="java.awt.Button"/></lhs><lhs name\="java.awt.Button"><rhs name\="java.awt.Button"/></lhs><lhs name\="java.awt.event.MouseListener"><rhs name\="javax.swing.plaf.basic.BasicButtonListener"/></lhs><lhs name\="java.util.EventListener"><rhs name\="javax.swing.plaf.basic.BasicButtonListener"/></lhs><lhs name\="java.awt.event.MouseMotionListener"><rhs name\="javax.swing.plaf.basic.BasicButtonListener"/></lhs><lhs name\="java.awt.event.FocusListener"><rhs name\="javax.swing.plaf.basic.BasicButtonListener"/></lhs><lhs name\="javax.swing.event.ChangeListener"><rhs name\="javax.swing.plaf.basic.BasicButtonListener"/></lhs><lhs name\="java.beans.PropertyChangeListener"><rhs name\="javax.swing.plaf.basic.BasicButtonListener"/></lhs><lhs name\="javax.swing.plaf.basic.BasicButtonListener"><rhs name\="javax.swing.plaf.basic.BasicButtonListener"/></lhs><lhs name\="net.scit.dao.BilkeDAO"><rhs name\="net.scit.dao.BilkeDAO"/></lhs><lhs name\="net.scit.vo.BlikeVO"><rhs name\="net.scit.vo.BlikeVO"/></lhs><lhs name\="net.scit.ui.BlikeUI"><rhs name\="net.scit.ui.BlikeUI"/></lhs><lhs name\="net.scit.dao.BlikeDAO"><rhs name\="net.scit.dao.BlikeDAO"/></lhs><lhs name\="net.scit.cashbook.vo.TotalAmount"><rhs name\="net.scit.cashbook.vo.TotalAmount"/></lhs></history>
 content_assist_number_of_computers=20
 eclipse.preferences.version=1
+markOccurrences=false
 org.eclipse.jdt.internal.ui.navigator.layout=2
 org.eclipse.jdt.internal.ui.navigator.librariesnode=true
 org.eclipse.jdt.ui.formatterprofiles.version=21
+spelling_ignore_ampersand_in_properties=true
+spelling_ignore_digits=true
+spelling_ignore_java_strings=true
+spelling_ignore_mixed=true
+spelling_ignore_non_letters=true
+spelling_ignore_sentence=true
+spelling_ignore_single_letters=true
+spelling_ignore_upper=true
+spelling_ignore_urls=true
 spelling_locale_initialized=true
+spelling_user_dictionary_encoding=UTF-8
 typefilter_migrated_2=true
 useAnnotationsPrefPage=true
 useQuickDiffPrefPage=true

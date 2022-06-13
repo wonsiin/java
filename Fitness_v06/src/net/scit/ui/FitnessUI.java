@@ -25,47 +25,47 @@ public class FitnessUI {
 			case "5" : update();	break;
 			case "6" : getCount();	break;
 			case "0" : ex();		return;
-			default : System.out.println("err : ¸Þ´º¸¦ ´Ù½Ã ¼±ÅÃÇÏ¼¼¿ä");
+			default : System.out.println("err : ì •í™•í•œ ê°’ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
 			}
 			sc.nextLine(); 
 		}
 	}
 	
 	public void menu() {
-		System.out.println("=====[°ü¸® ÇÁ·Î±×·¥]=====");
-		System.out.println("     1. ÀÔ   ·Â");
-		System.out.println("     2. ÀüÃ¼Ãâ·Â");
-		System.out.println("     3. Á¶   È¸");
-		System.out.println("     4. »è   Á¦");
-		System.out.println("     5. ¼ö   Á¤");
-		System.out.println("     6. ÃÑÀÎ¿ø");
-		System.out.println("     0. Á¾   ·á");
+		System.out.println("=====[ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±×·ï¿½]=====");
+		System.out.println("     1. ï¿½ï¿½   ï¿½ï¿½");
+		System.out.println("     2. ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½");
+		System.out.println("     3. ï¿½ï¿½   È¸");
+		System.out.println("     4. ï¿½ï¿½   ï¿½ï¿½");
+		System.out.println("     5. ï¿½ï¿½   ï¿½ï¿½");
+		System.out.println("     6. ï¿½ï¿½ï¿½Î¿ï¿½");
+		System.out.println("     0. ï¿½ï¿½   ï¿½ï¿½");
 		System.out.println("======================");
-		System.out.print("     ¼±ÅÃ > ");
+		System.out.print("     ï¿½ï¿½ï¿½ï¿½ > ");
 	}
 	public void input() {
 		String usrid;
 		String usrname;
 		double height;
 		double weight;
-		System.out.print(">¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä(id) : ");
+		System.out.print(">ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½(id) : ");
 		usrid = sc.next();
 		
 		if(idCheck(usrid)) {
-			System.out.println("** Áßº¹µÈ ¾ÆÀÌµð°¡ Á¸ÀçÇÕ´Ï´Ù.");
+			System.out.println("** ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 			return;
 		}
-		System.out.print("> ÀÌ ¸§ : ");
+		System.out.print("> ï¿½ï¿½ ï¿½ï¿½ : ");
 		usrname = sc.next();
 		System.out.print(">  Å°  : ");
 		height = sc.nextDouble();
-		System.out.print(">¸ö¹«°è : ");
+		System.out.print(">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ");
 		weight = sc.nextDouble();
 		
 		FitnessVO  vo = new FitnessVO(usrid, usrname, height, weight);
 		
 		int result = dao.regist(vo);
-		System.out.printf("** %d ¸í È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.",result);
+		System.out.printf("** %d ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.",result);
 	}
 	
 	private void getCount() {
@@ -74,7 +74,7 @@ public class FitnessUI {
 	public void output() {
 		List<FitnessVO> list = dao.findAll();
 		if(list.isEmpty()) {
-			System.out.println("** °¡ÀÔÇÑ È¸¿øÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			return;
 		}
 		Iterator<FitnessVO> iter = list.iterator();
@@ -94,13 +94,13 @@ public class FitnessUI {
 
 	public void selectOne() {
 		String usrid;
-		System.out.print("°í°´´ÔÀÇ ID´Â ¹«¾ùÀÔ´Ï±î : ");
+		System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï±ï¿½ : ");
 		String co = sc.next();
 		
 		FitnessVO vo = dao.findById(co);
 		
 		if(vo == null) {
-			System.out.println("** ÇØ´ç ¾ÆÀÌµðÀÇ È¸¿øÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("** ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			return;
 		}
 		
@@ -111,21 +111,21 @@ public class FitnessUI {
 	public void delete() {
 
 		String answer,userid;
-		System.out.print("»èÁ¦ÇÒ ID´Â ¹«¾ùÀÔ´Ï±î : ");
+		System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï±ï¿½ : ");
 		userid = sc.next();
 		FitnessVO vo = dao.findById(userid);
 		if(vo == null) {
-			System.out.println("** ÇØ´ç ¾ÆÀÌµðÀÇ È¸¿øÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("** ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			return;
 		}
-		System.out.print("** Á¤¸»·Î Å»ÅðÇÏ½Ã°Ú½À´Ï±î? (y/n)");
+		System.out.print("** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½? (y/n)");
 		answer = sc.next();
 		if(answer.equals("y")) {
-			dao.delete(userid); // ¸®ÅÏ°ªÀ» ¹ÞÁö ¾Ê¾Æµµ µÈ´Ù. ==> 
-			System.out.println("** »èÁ¦ ¿Ï·á\n");
+			dao.delete(userid); // ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æµï¿½ ï¿½È´ï¿½. ==> 
+			System.out.println("** ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½\n");
 			return;
 		}else {
-			System.out.println("** »èÁ¦ ÀÛ¾÷ÀÌ Ãë¼ÒµÇ¾ú½À´Ï´Ù.");
+			System.out.println("** ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ÒµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 		}
 	}
 	public void update() {
@@ -133,30 +133,30 @@ public class FitnessUI {
 		String usrname;
 		double height;
 		double weight;
-		System.out.print(">¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä(id) : ");
+		System.out.print(">ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½(id) : ");
 		usrid = sc.next();
 		
 		FitnessVO vo = dao.findById(usrid);
 		if(vo == null) {
-			System.out.println("** ÇØ´ç ¾ÆÀÌµðÀÇ È¸¿øÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("** ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			return;
 		}
 
-		System.out.print("> ÀÌ ¸§ : ");
+		System.out.print("> ï¿½ï¿½ ï¿½ï¿½ : ");
 		usrname = sc.next();
 		System.out.print(">  Å°  : ");
 		height = sc.nextDouble();
-		System.out.print(">¸ö¹«°è : ");
+		System.out.print(">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ");
 		weight = sc.nextDouble();
 		
 		vo = new FitnessVO(usrid, usrname, height, weight);
 		
 		int result = dao.update(vo);
-		System.out.printf("** %d ¸í È¸¿ø¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.",result);
+		System.out.printf("** %d ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.",result);
 
 	}
 	public void ex() {
-		System.out.println("**ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+		System.out.println("**ï¿½ï¿½ï¿½Î±×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 		
 		
 	}

@@ -28,9 +28,9 @@ public class ReplyUI {
 			case "0": 
 				return;
 			default:
-				System.out.println("err) ¸Þ´º¸¦ ´Ù½Ã ¼±ÅÃÇØ ÁÖ¼¼¿ä");
+				System.out.println("err) ë©”ë‰´ë¥¼ ë‹¤ì‹œ ì„ íƒí•´ ì£¼ì„¸ìš”");
 			}
-//			keyin.nextLine(); //¹öÆÛ ºñ¿ì±â
+//			keyin.nextLine(); //ë²„í¼ ë¹„ìš°ê¸°
 		}
 		
 	}
@@ -39,16 +39,16 @@ public class ReplyUI {
 		String writer;
 		String text;
 		
-		System.out.print(">ÀÛ¼ºÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print(">ìž‘ì„±ìžë¥¼ ìž…ë ¥í•˜ì„¸ìš” : ");
 		writer = keyin.nextLine();
-		if(writer.trim().equals("")) {	//±ÛÀÚ¸¸ ÀÔ·ÂÇÒ¼öÀÖ°Ô ´Ù¸¥°Ô µé¾î¿À¸é ÀÔ·Â¾ÈµÇ°Ô
-			System.out.println("¹®ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
+		if(writer.trim().equals("")) {	//ê¸€ìžë§Œ ìž…ë ¥í• ìˆ˜ìžˆê²Œ ë‹¤ë¥¸ê²Œ ë“¤ì–´ì˜¤ë©´ ìž…ë ¥ì•ˆë˜ê²Œ
+			System.out.println("ë¬¸ìžë¡œ ìž…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}
-		System.out.print(">³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print(">ë‚´ìš©ì„ ìž…ë ¥í•˜ì„¸ìš” : ");
 		text = keyin.nextLine();
-		if(text.trim().equals("")) {	//±ÛÀÚ¸¸ ÀÔ·ÂÇÒ¼öÀÖ°Ô ´Ù¸¥°Ô µé¾î¿À¸é ÀÔ·Â¾ÈµÇ°Ô
-			System.out.println("¹®ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
+		if(text.trim().equals("")) {	//ê¸€ìžë§Œ ìž…ë ¥í• ìˆ˜ìžˆê²Œ ë‹¤ë¥¸ê²Œ ë“¤ì–´ì˜¤ë©´ ìž…ë ¥ì•ˆë˜ê²Œ
+			System.out.println("ë¬¸ìžë¡œ ìž…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}
 		System.out.println(boardnum);
@@ -60,22 +60,22 @@ public class ReplyUI {
 	private void delete(int boardnum) {
 		String answer;
 		int replynum;
-		System.out.print("»èÁ¦ÇÒ ID´Â ¹«¾ùÀÔ´Ï±î : ");
+		System.out.print("ì‚­ì œí•  IDëŠ” ë¬´ì—‡ìž…ë‹ˆê¹Œ : ");
 		replynum = keyin.nextInt();
 		keyin.nextLine();
 		Reply r = ReplyDao.findById(replynum);
 		if(r == null) {
-			System.out.println("** ÇØ´ç ¾ÆÀÌµðÀÇ È¸¿øÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("** í•´ë‹¹ ì•„ì´ë””ì˜ íšŒì›ì´ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
-		System.out.print("** Á¤¸»·Î Å»ÅðÇÏ½Ã°Ú½À´Ï±î? (y/n)");
+		System.out.print("** ì •ë§ë¡œ íƒˆí‡´í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (y/n)");
 		answer = keyin.next();
 		if(answer.equals("y")) {
-			ReplyDao.deleteReply(replynum); // ¸®ÅÏ°ªÀ» ¹ÞÁö ¾Ê¾Æµµ µÈ´Ù. ==> 
-			System.out.println("** »èÁ¦ ¿Ï·á\n");
+			ReplyDao.deleteReply(replynum); // ë¦¬í„´ê°’ì„ ë°›ì§€ ì•Šì•„ë„ ëœë‹¤. ==> 
+			System.out.println("** ì‚­ì œ ì™„ë£Œ\n");
 			return;
 		}else {
-			System.out.println("** »èÁ¦ ÀÛ¾÷ÀÌ Ãë¼ÒµÇ¾ú½À´Ï´Ù.");
+			System.out.println("** ì‚­ì œ ìž‘ì—…ì´ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 		}
 	}
 	
@@ -92,36 +92,36 @@ public class ReplyUI {
 		int replynum;
 		String text;
 		Reply r = new Reply();
-		System.out.print(">¼öÁ¤ÇÒ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print(">ìˆ˜ì •í•  ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ì„¸ìš” : ");
 		replynum = keyin.nextInt();
 		keyin.nextLine();
 		if(replynum ==r.getReplynum()) {
-			System.out.println("** ÇØ´ç ¹øÈ£°¡ ¾ø½À´Ï´Ù.");
+			System.out.println("** í•´ë‹¹ ë²ˆí˜¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
-		System.out.println("======= ¼ö   Á¤ =========");
-		System.out.println("> ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.println("======= ìˆ˜   ì • =========");
+		System.out.println("> ë‚´ìš©ì„ ìž…ë ¥í•˜ì„¸ìš” : ");
 		text = keyin.nextLine();
 		if(text.trim().equals("")) {
-			System.out.println("¹®ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("ë¬¸ìžë¡œ ìž…ë ¥í•´ì£¼ì„¸ìš”");
 			return;
 		}
 		r = ReplyDao.findById(replynum);
 		r.setText(text);
 			int result = 	ReplyDao.updateReply(r);
-		System.out.printf("** %d ¸í ¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.",result);
+		System.out.printf("** %d ëª… ìˆ˜ì •ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.",result);
 	}
 
 	private void subMenu() {
 		System.out.println();
-		System.out.println("============[¿ÀÇÂ °Ô½ÃÆÇ]===============");
-		System.out.println("      1) µ¡±Û ¾²±â");
-		System.out.println("      2) µ¡±Û »èÁ¦");
-		System.out.println("      3) µ¡±Û ¼öÁ¤");
-		System.out.println("      4) ÀüÃ¼ µ¡±Û");
-		System.out.println("      0) µ¹¾Æ °¡±â");
+		System.out.println("============[ì˜¤í”ˆ ê²Œì‹œíŒ]===============");
+		System.out.println("      1) ë§ê¸€ ì“°ê¸°");
+		System.out.println("      2) ë§ê¸€ ì‚­ì œ");
+		System.out.println("      3) ë§ê¸€ ìˆ˜ì •");
+		System.out.println("      4) ì „ì²´ ë§ê¸€");
+		System.out.println("      0) ëŒì•„ ê°€ê¸°");
 		System.out.println("==================================");
-		System.out.print	("                ¼±ÅÃ > ");
+		System.out.print	("                ì„ íƒ > ");
 	}
 	
 	

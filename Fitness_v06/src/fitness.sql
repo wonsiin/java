@@ -1,11 +1,13 @@
 Create table fitness
 (
-    Usrid 			varchar2(20) Primary key, --È¸¿øid
-    usrname	 	varchar2(50) not null,  --È¸¿ø ÀÌ¸§
+    Usrid 			varchar2(20) Primary key, --È¸ï¿½ï¿½id
+    usrname	 	varchar2(50) not null,  --È¸ï¿½ï¿½ ï¿½Ì¸ï¿½
     Height 		number(6 , 2) not null,     --Å°
-    weight 		number(6 , 2) not null,     --¸ö¹«°Ô
-    Bmi 				number (6 , 2) default 0.0,     --½ÅÃ¼Áú·®Áö¼ö
+    weight 		number(6 , 2) not null,     --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    Bmi 				number (6 , 2) default 0.0,     --ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Bmiresult 	varchar2(20) 
-    					check (Bmiresult in('°íµµºñ¸¸','Áßµµºñ¸¸','°æµµºñ¸¸','°úÃ¼Áß','Á¤»ó','ÀúÃ¼Áß')) ,      --
-    Joindate 		date default sysdate       --°¡ÀÔÇÑ ³¯Â¥
+    					check (Bmiresult in('ï¿½ï¿½ï¿½ï¿½','ï¿½ßµï¿½ï¿½ï¿½','ï¿½æµµï¿½ï¿½','ï¿½ï¿½Ã¼ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½','ï¿½ï¿½Ã¼ï¿½ï¿½')) ,      --
+    Joindate 		date default sysdate 
+    
+    --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥.........................................
 );

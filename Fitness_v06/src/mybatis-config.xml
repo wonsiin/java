@@ -6,9 +6,11 @@
 
 	<properties resource="db.properties" />
 	
-	<typeAliases >
-		<typeAlias type="net.scit.vo.FitnessVO" alias="FitnessVO"/>
+	<typeAliases>
+		<typeAlias type="net.scit.vo.FitnessVO" alias="Fitness"/>                                                                                                            
 	</typeAliases>
+	
+	
 	
 	<environments default="development">
 		<environment id="development">
@@ -23,6 +25,7 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="fitnessMapper.xml" />
+		<mapper resource="fitnessMapper.xml"/>
 	</mappers>
+	
 </configuration>

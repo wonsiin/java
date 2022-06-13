@@ -4,29 +4,30 @@ import java.util.List;
 import java.util.Map;
 
 import net.scit.vo.Board;
-import net.scit.vo.Reply;
 
 public interface BoardMapper {
-	//°Ô½Ã±Û ÀüÃ¼ Ãâ·Â
+	// ê²Œì‹œê¸€ ì „ì²´ ì¶œë ¥
 	public List<Board> listBoard();
-	
-	//°Ô½Ã±Û µî·Ï
-	public int weiterBoard(Board board); //
-	//°Ô½Ã±Û Á¶È¸
-	public Board readBoard(int boardunm); //
-	//°Ô½Ã±Û °Ë»ö
-	public List<Board>  searchBoard(Map<String, Object> map);
-	//°Ô½Ã±Û »èÁ¦
-	public int deletBoard(int boardunm); //
-	//°Ô½Ã±Û ¼öÁ¤
+
+	// ê²Œì‹œê¸€ ë“±ë¡
+	public int writeBoard(Board board);
+
+	// ê²Œì‹œê¸€ ì¡°íšŒ
+	public Board readBoard(String boardnum);
+
+	// ê²Œì‹œê¸€ ê²€ìƒ‰
+	public List<Board> searchBoard(Map<String, Object> map);
+
+	// ê²Œì‹œê¸€ ì‚­ì œ
+	public int deleteBoard(String boardnum);
+
+	// ê²Œì‹œê¸€ ìˆ˜ì •
 	public int updateBoard(Board board);
-	//Á¶È¸¼ö ¼öÁ¤
-	public int incrementHitcount(int boardaunm); //
-	//ÀüÃ¼ ±Û °³¼ö
+
+	// ì¡°íšŒìˆ˜ ìˆ˜ì •
+	public int incrementHitcount(String boardnum);
+
+	// ì „ì²´ ê¸€ ìˆ˜
 	public int getCount();
-
-	public Board findById(int boardnum);
-
-	
-	
 }
+
